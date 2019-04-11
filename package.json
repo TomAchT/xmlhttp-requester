@@ -4,7 +4,7 @@
   "description": "Generic Http requester for flexio service clients",
   "main": "index.js",
   "module": "index.js",
-  "repository": "git@github.com:flexiooss/fetch-requester.git",
+  "repository": "https://github.com/TomAchT/xmlhttp-requester.git",
   "author": "Thomas Chatelain (https://github.com/TomAchT)",
   "license": "Apache-2.0",
   "dependencies": {
