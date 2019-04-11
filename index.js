@@ -1,1 +1,1 @@
-export {XmlHttpRequester} from './src/js/FetchRequester'
+export {XmlHttpRequester} from './src/js/XmlHttpRequester'
