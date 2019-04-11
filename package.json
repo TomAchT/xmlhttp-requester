@@ -1,0 +1,34 @@
+{
+  "name": "xmlhttp-requester",
+  "version": "0.0.0-dev",
+  "description": "Generic Http requester for flexio service clients",
+  "main": "index.js",
+  "module": "index.js",
+  "repository": "git@github.com:flexiooss/fetch-requester.git",
+  "author": "Thomas Chatelain (https://github.com/TomAchT)",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "flexio-jshelpers": "https://github.com/flexiooss/xmlhttp-requester.git"
+  },
+  "devDependencies": {
+    "eslint": "^5.13.0",
+    "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-plugin-html": "^4.0.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "regenerator-runtime": "^0.12.0",
+    "code-altimeter-js": "https://github.com/flexiooss/code-altimeter-js.git"
+  },
+  "hotballoon-shed": {
+    "build": {
+      "builder": "webpack4"
+    },
+    "test": {
+      "tester": "code-altimeter-js",
+      "path": "src/test"
+    }
+  }
+}
