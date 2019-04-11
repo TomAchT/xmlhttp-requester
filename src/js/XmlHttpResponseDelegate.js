@@ -2,7 +2,7 @@
 global Headers
 */
 
-import {assertType, isNull, isNumber, isString, deepFreezeSeal, ArrayString} from 'flexio-jshelpers'
+import {assertType, isNull, isNumber, isString, deepFreezeSeal, StringArray} from 'flexio-jshelpers'
 
 /**
  * @implements {ResponseDelegate}

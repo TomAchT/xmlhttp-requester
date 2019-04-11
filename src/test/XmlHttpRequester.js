@@ -3,7 +3,7 @@ import {XmlHttpRequester} from '../js/FetchRequester'
 import {TestCase} from 'code-altimeter-js'
 const assert = require('assert')
 
-export class TestFetchRequester extends TestCase {
+export class TestXmlHttpRequester extends TestCase {
   testPath() {
     new Headers()
     // const requester = new FetchRequester().path('https://www.fakeApi.com').get()
@@ -13,4 +13,4 @@ export class TestFetchRequester extends TestCase {
   }
 }
 
-runTest(TestFetchRequester)
+runTest(TestXmlHttpRequester)
