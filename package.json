@@ -8,7 +8,7 @@
   "author": "Thomas Chatelain (https://github.com/TomAchT)",
   "license": "Apache-2.0",
   "dependencies": {
-    "flexio-jshelpers": "https://github.com/flexiooss/xmlhttp-requester.git"
+    "flexio-jshelpers": "https://github.com/flexiooss/flexio-jshelpers.git"
   },
   "devDependencies": {
     "eslint": "^5.13.0",
