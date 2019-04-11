@@ -1,5 +1,4 @@
-/* global fetch, Headers,Request,URL,Response */
-import {InitRequestBuilder} from './InitRequestBuilder'
+/* global URL,XMLHttpRequest */
 import {assertType, isString, isNull, StringArray} from 'flexio-jshelpers'
 import {XmlHttpResponseDelegate} from './XmlHttpResponseDelegate'
 
@@ -26,7 +25,6 @@ export class XmlHttpRequester {
      * @private
      */
     this.__parameters = new URLSearchParams()
-
   }
 
   /**
@@ -34,7 +32,6 @@ export class XmlHttpRequester {
    */
   get() {
     return this.__exec('GET')
-
   }
 
   /**
@@ -46,11 +43,7 @@ export class XmlHttpRequester {
     if (!isNull(contentType)) {
       this.header('content-type', contentType)
     }
-    return this.__exec(
-      this.__buildRequest(
-        this.__buildInit('POST').body(body)
-      )
-    )
+    return this.__exec('POST', body)
   }
 
   /**
@@ -62,11 +55,7 @@ export class XmlHttpRequester {
     if (!isNull(contentType)) {
       this.header('content-type', contentType)
     }
-    return this.__exec(
-      this.__buildRequest(
-        this.__buildInit('PUT').body(body)
-      )
-    )
+    return this.__exec('PUT', body)
   }
 
   /**
@@ -78,33 +67,21 @@ export class XmlHttpRequester {
     if (!isNull(contentType)) {
       this.header('content-type', contentType)
     }
-    return this.__exec(
-      this.__buildRequest(
-        this.__buildInit('PATCH').body(body)
-      )
-    )
+    return this.__exec('PATCH', body)
   }
 
   /**
    * @return {ResponseDelegate}
    */
   delete() {
-    return this.__exec(
-      this.__buildRequest(
-        this.__buildInit('DELETE')
-      )
-    )
+    return this.__exec('DELETE')
   }
 
   /**
    * @return {ResponseDelegate}
    */
   head() {
-    return this.__exec(
-      this.__buildRequest(
-        this.__buildInit('HEAD')
-      )
-    )
+    return this.__exec('HEAD')
   }
 
   /**
@@ -186,24 +163,45 @@ export class XmlHttpRequester {
 
   /**
    * @param {string} method
+   * @param {?string} [body=null]
    * @return {XmlHttpResponseDelegate}
    * @private
    */
-  __exec(method) {
-    assertType(isString(value), 'InitRequestBuilder:method value should be a string')
-    assertType(['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'HEAD'].includes(value), 'InitRequestBuilder:method value should be in [\'GET\', \'POST\', \'PATCH\', \'PUT\', \'DELETE\', \'HEAD\']')
+  __exec(method, body = null) {
+    assertType(isString(method), 'InitRequestBuilder:method value should be a string')
+    assertType(['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'HEAD'].includes(method), 'InitRequestBuilder:method value should be in [\'GET\', \'POST\', \'PATCH\', \'PUT\', \'DELETE\', \'HEAD\']')
     /**
      *
      * @type {XMLHttpRequest}
      */
-    const oReq = new XMLHttpRequest()
-    oReq.open(method, this.__buildPath())
-    // oReq.setRequestHeader(header, value)
-    // oReq.overrideMimeType(mimeType)
+    const request = new XMLHttpRequest()
+    request.open(method, this.__buildPath(), false)
+    this.__requestHeaders(request)
+    request.send(body)
+    return new XmlHttpResponseDelegate(request.status, request.responseText, this.__responseHeaders(request))
+  }
 
-    oReq.send()
-    return new XmlHttpResponseDelegate(oReq.status, oReq.responseText, new Map())
-
+  /**
+   *
+   * @param  {XMLHttpRequest} request
+   * @private
+   */
+  __requestHeaders(request) {
+    this.__headers.forEach((value, header) => {
+      if (header === 'content-type') {
+        request.overrideMimeType(value)
+      }
+      if (value instanceof StringArray) {
+        /**
+         * @type {StringArray}
+         */
+        value.forEach((v) => {
+          request.setRequestHeader(header, v)
+        })
+      } else {
+        request.setRequestHeader(header, value)
+      }
+    })
   }
 
   /**
@@ -220,16 +218,16 @@ export class XmlHttpRequester {
      *
      * @type {Map<string, (StringArray|string)>}
      */
-    const headerMap = new Map
+    const headerMap = new Map()
     arr.forEach(function(line) {
       const parts = line.split(': ')
       const header = parts.shift()
       const value = parts.join(': ')
       if (headerMap.has(header)) {
-        if (headerMap.get(header) instanceof ArrayString) {
+        if (headerMap.get(header) instanceof StringArray) {
           headerMap.get(header).push(value)
         } else {
-          headerMap.set(header, new ArrayString(headerMap.get(header), value))
+          headerMap.set(header, new StringArray(headerMap.get(header), value))
         }
       } else {
         headerMap.set(header, value)
@@ -248,5 +246,4 @@ export class XmlHttpRequester {
     }
     return this.__path.toString()
   }
-
 }
