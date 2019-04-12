@@ -11,13 +11,13 @@ export class XmlHttpResponseDelegate {
   /**
    *
    * @param {?number} [code=null]
-   * @param {?string} [body=null]
-   * @param {?Map<string, (ArrayString|string)>} [headers=null]
+   * @param {?string} [payload=null]
+   * @param {?Map<string, (StringArray|string)>} [headers=null]
    * @readonly
    */
-  constructor(code = null, body = null, headers = null) {
+  constructor(code = null, payload = null, headers = null) {
     assertType(isNull(code) || isNumber(code), 'FetchResponseDelegate: `code` should be a number')
-    assertType(isNull(body) || isString(body), 'FetchResponseDelegate: `body` should be a string')
+    assertType(isNull(payload) || isString(payload), 'FetchResponseDelegate: `payload` should be a string')
     assertType(isNull(headers) || headers instanceof Map, 'FetchResponseDelegate: `headers` should be a Map')
     /**
      *
@@ -30,10 +30,10 @@ export class XmlHttpResponseDelegate {
      * @type {?string}
      * @private
      */
-    this.__body = body
+    this.__payload = payload
     /**
      *
-     * @type {?Map<string, (ArrayString|string)>}
+     * @type {?Map<string, (StringArray|string)>}
      * @private
      */
     this.__headers = headers
@@ -51,14 +51,14 @@ export class XmlHttpResponseDelegate {
   /**
    * @return {?string}
    */
-  body() {
-    return this.__body
+  payload() {
+    return this.__payload
   }
 
   /**
    *
    * @param {string} name
-   * @return {?(string|ArrayString)}
+   * @return {?(string|StringArray)}
    */
   header(name) {
     return this.__headers.get(name)
