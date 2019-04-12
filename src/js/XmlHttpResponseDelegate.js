@@ -16,9 +16,9 @@ export class XmlHttpResponseDelegate {
    * @readonly
    */
   constructor(code = null, payload = null, headers = null) {
-    assertType(isNull(code) || isNumber(code), 'FetchResponseDelegate: `code` should be a number')
-    assertType(isNull(payload) || isString(payload), 'FetchResponseDelegate: `payload` should be a string')
-    assertType(isNull(headers) || headers instanceof Map, 'FetchResponseDelegate: `headers` should be a Map')
+    assertType(isNull(code) || isNumber(code), 'XmlHttpResponseDelegate: `code` should be a number')
+    assertType(isNull(payload) || isString(payload), 'XmlHttpResponseDelegate: `payload` should be a string')
+    assertType(isNull(headers) || headers instanceof Map, 'XmlHttpResponseDelegate: `headers` should be a Map')
     /**
      *
      * @type {?number}
