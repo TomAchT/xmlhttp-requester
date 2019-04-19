@@ -1,6 +1,6 @@
 /* global URL,XMLHttpRequest */
 import {assertType, isString, isNull, StringArray} from 'flexio-jshelpers'
-import {XmlHttpResponseDelegate} from './XmlHttpResponseDelegate'
+import {XmlHttpResponseDelegateBuilder} from './XmlHttpResponseDelegate'
 
 /**
  * @implements {HttpRequester}
@@ -178,7 +178,12 @@ export class XmlHttpRequester {
     request.open(method, this.__buildPath(), false)
     this.__requestHeaders(request)
     request.send(body)
-    return new XmlHttpResponseDelegate(request.status, request.responseText, this.__responseHeaders(request))
+
+    return new XmlHttpResponseDelegateBuilder()
+      .code(request.status)
+      .payload(request.responseText)
+      .headers(this.__responseHeaders(request))
+      .build()
   }
 
   /**
@@ -207,7 +212,7 @@ export class XmlHttpRequester {
   /**
    *
    * @param {XMLHttpRequest} request
-   * @return {Map<string, StringArray|string>}
+   * @return {Map<string, (StringArray|string)>}
    * @private
    */
   __responseHeaders(request) {
