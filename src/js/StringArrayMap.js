@@ -5,8 +5,19 @@ import {StringArray, assertType, FlexMap} from 'flexio-jshelpers'
  */
 export class StringArrayMap extends FlexMap {
   _validate(v) {
-    console.log(v)
     assertType(v instanceof StringArray, 'StringArrayMap: input should be a StringArray')
+  }
+
+  /**
+   *
+   * @return {Object.<*, Array.<string>>}
+   */
+  toObject() {
+    let obj = Object.create(null)
+    for (let [k, v] of this) {
+      obj[k] = v.toObject()
+    }
+    return obj
   }
 }
 

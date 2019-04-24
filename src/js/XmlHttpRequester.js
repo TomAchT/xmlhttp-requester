@@ -1,6 +1,7 @@
 /* global URL,XMLHttpRequest */
 import {assertType, isString, isNull, StringArray} from 'flexio-jshelpers'
 import {XmlHttpResponseDelegateBuilder} from './XmlHttpResponseDelegate'
+import {StringArrayMap} from './StringArrayMap'
 
 /**
  * @implements {HttpRequester}
@@ -212,7 +213,7 @@ export class XmlHttpRequester {
   /**
    *
    * @param {XMLHttpRequest} request
-   * @return {Map<string, (StringArray|string)>}
+   * @return {StringArrayMap}
    * @private
    */
   __responseHeaders(request) {
@@ -221,23 +222,21 @@ export class XmlHttpRequester {
     const arr = headers.trim().split(/[\r\n]+/)
     /**
      *
-     * @type {Map<string, (StringArray|string)>}
+     * @type {StringArrayMap}
      */
-    const headerMap = new Map()
+    const headerMap = new StringArrayMap()
+
     arr.forEach(function(line) {
       const parts = line.split(': ')
       const header = parts.shift()
       const value = parts.join(': ')
       if (headerMap.has(header)) {
-        if (headerMap.get(header) instanceof StringArray) {
-          headerMap.get(header).push(value)
-        } else {
-          headerMap.set(header, new StringArray(headerMap.get(header), value))
-        }
+        headerMap.get(header).push(value)
       } else {
-        headerMap.set(header, value)
+        headerMap.set(header, new StringArray(value))
       }
     })
+
     return headerMap
   }
 

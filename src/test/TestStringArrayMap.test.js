@@ -33,4 +33,4 @@ export class TestStringArrayMap extends TestCase {
   }
 }
 
-runTest(TestStringArrayMap)
+// runTest(TestStringArrayMap)

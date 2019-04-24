@@ -3,6 +3,7 @@ global Headers
 */
 
 import {assertType, isNull, isNumber, isString, deepFreezeSeal, StringArray} from 'flexio-jshelpers'
+import {StringArrayMap, StringArrayMapBuilder} from './StringArrayMap'
 
 /**
  * @implements {ResponseDelegate}
@@ -12,7 +13,7 @@ export class XmlHttpResponseDelegate {
    *
    * @param {?number} [code=null]
    * @param {?string} [payload=null]
-   * @param {?Map<string, (StringArray|string)>} [headers=null]
+   * @param {?StringArrayMap} [headers=null]
    * @readonly
    */
   constructor(code = null, payload = null, headers = null) {
@@ -30,7 +31,7 @@ export class XmlHttpResponseDelegate {
     this.__payload = payload
     /**
      *
-     * @type {?Map<string, (StringArray|string)>}
+     * @type {?StringArrayMap}
      * @private
      */
     this.__headers = headers
@@ -54,7 +55,7 @@ export class XmlHttpResponseDelegate {
 
   /**
    *
-   * @type {?Map<string, (StringArray|string)>}
+   * @type {?StringArrayMap}
    */
   headers() {
     return this.__headers
@@ -66,7 +67,7 @@ export class XmlHttpResponseDelegate {
    * @return {?(string|StringArray)}
    */
   header(name) {
-    return this.__headers.get(name)
+    return this.__headers.get(name).length > 1 ? this.__headers.get(name) : this.__headers.get(name).first()
   }
 
   /**
@@ -81,7 +82,10 @@ export class XmlHttpResponseDelegate {
    * @returns {object}
    */
   toObject() {
-    var jsonObject = {}
+    const jsonObject = {}
+    jsonObject.code = this.__code
+    jsonObject.payload = this.__payload
+    jsonObject.headers = this.__headers.toObject()
     return jsonObject
   }
 
@@ -112,7 +116,7 @@ export class XmlHttpResponseDelegateBuilder {
     this.__payload = null
     /**
      *
-     * @type {?Map<string, (StringArray|string)>}
+     * @type {?StringArrayMap}
      * @private
      */
     this.__headers = null
@@ -124,7 +128,6 @@ export class XmlHttpResponseDelegateBuilder {
    */
   code(code) {
     assertType(isNull(code) || isNumber(code), 'XmlHttpResponseDelegateBuilder: `code` should be a number')
-
     this.__code = code
     return this
   }
@@ -136,15 +139,17 @@ export class XmlHttpResponseDelegateBuilder {
   payload(payload) {
     assertType(isNull(payload) || isString(payload), 'XmlHttpResponseDelegateBuilder: `payload` should be a string')
     this.__payload = payload
+    return this
   }
 
   /**
-   * @param {?Map<string, (StringArray|string)>} [headers=null]
+   * @param {?StringArrayMap} headers
    * @returns {XmlHttpResponseDelegateBuilder}
    */
   headers(headers) {
-    assertType(isNull(headers) || headers instanceof Map, 'XmlHttpResponseDelegateBuilder: `headers` should be a Map')
+    assertType(isNull(headers) || headers instanceof StringArrayMap, 'XmlHttpResponseDelegateBuilder: `headers` should be a StringArrayMap')
     this.__headers = headers
+    return this
   }
 
   /**
@@ -167,7 +172,11 @@ export class XmlHttpResponseDelegateBuilder {
       builder.payload(jsonObject['payload'])
     }
     if (jsonObject['headers'] !== undefined) {
-      builder.headers(jsonObject['headers'])
+      builder.headers(
+        StringArrayMapBuilder
+          .fromObject(jsonObject['headers'])
+          .build()
+      )
     }
     return builder
   }
