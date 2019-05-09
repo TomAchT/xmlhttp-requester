@@ -67,7 +67,8 @@ export class XmlHttpResponseDelegate {
    * @return {?(string|StringArray)}
    */
   header(name) {
-    return this.__headers.get(name).length > 1 ? this.__headers.get(name) : this.__headers.get(name).first()
+    const lowerName = name.toLocaleLowerCase()
+    return this.__headers.get(lowerName).length > 1 ? this.__headers.get(lowerName) : this.__headers.get(lowerName).first()
   }
 
   /**
