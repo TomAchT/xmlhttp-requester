@@ -1,82 +1,75 @@
-/*
-global Headers
-*/
-
-import {assertType, isNull, isNumber, isString, deepFreezeSeal, StringArray} from 'flexio-jshelpers'
+/* global URL,XMLHttpRequest */
+import {assertType, isString, isNull, StringArray, isNumber} from 'flexio-jshelpers'
+import {XmlHttpResponseDelegate, XmlHttpResponseDelegateBuilder} from './XmlHttpResponseDelegate'
 import {StringArrayMap, StringArrayMapBuilder} from './types/StringArrayMap'
 
-/**
- * @implements {ResponseDelegate}
- */
-export class XmlHttpResponseDelegate {
-  /**
-   *
-   * @param {?number} [code=null]
-   * @param {?string} [payload=null]
-   * @param {?StringArrayMap} [headers=null]
-   * @readonly
-   */
-  constructor(code = null, payload = null, headers = null) {
-    /**
-     *
-     * @type {?number}
-     * @private
-     */
-    this.__code = code
-    /**
-     *
-     * @type {?string}
-     * @private
-     */
-    this.__payload = payload
+
+export class XmlHttpRequest {
+  constructor() {
     /**
      *
      * @type {?StringArrayMap}
-     * @private
+     * @protected
      */
-    this.__headers = headers
-
-    return deepFreezeSeal(this)
+    this._headers = new StringArrayMap()
+    /**
+     *
+     * @type {?URL}
+     * @protected
+     */
+    this._path = null
+    /**
+     *
+     * @type {URLSearchParams}
+     * @protected
+     */
+    this._parameters = new URLSearchParams()
   }
 
+
+
   /**
-   * @return {?number}
+   * @return {URLSearchParams}
    */
-  code() {
-    return this.__code
+  parameters() {
+    return this._parameters
   }
 
   /**
-   * @return {?string}
-   */
-  payload() {
-    return this.__payload
-  }
-
-  /**
-   *
-   * @type {?StringArrayMap}
-   */
-  headers() {
-    return this.__headers
-  }
-
-  /**
-   *
    * @param {string} name
-   * @return {?(string|StringArray)}
+   * @param {Array<string>} values
+   * @return {this}
    */
-  header(name) {
-    const lowerName = name.toLocaleLowerCase()
-    return this.__headers.get(lowerName).length > 1 ? this.__headers.get(lowerName) : this.__headers.get(lowerName).first()
+  arrayParameter(name, values) {
+    assertType(isString(name), 'XmlHttpRequester:arrayParameter: name should be string or null')
+    this._parameters.delete(name)
+    for (const v in new StringArray(...values)) {
+      this._parameters.append(name, v)
+    }
+    return this
   }
 
   /**
-   *
-   * @return {?string}
+   * @param {string} name
+   * @param {?string} value
+   * @return {this}
    */
-  contentType() {
-    return this.header('content-type')
+  header(name, value) {
+    assertType(isString(name) && (isString(value) || isNull(value)), 'XmlHttpRequester:header: name and value should be string or null')
+    this._headers.set(name, value)
+    return this
+  }
+
+
+
+  /**
+   * @param {?string} path
+   * @return {this}
+   */
+  path() {
+    assertType(isString(path) || isNull(path), 'XmlHttpRequester:path: path should be string or null')
+    this._path = new URL(path)
+    return this
   }
 
   /**
@@ -84,9 +77,9 @@ export class XmlHttpResponseDelegate {
    */
   toObject() {
     const jsonObject = {}
-    jsonObject.code = this.__code
-    jsonObject.payload = this.__payload
-    jsonObject.headers = this.__headers.toObject()
+    jsonObject.headers = this._headers.toObject()
+    jsonObject.parameters = this._parameters
+    jsonObject.path = this._path
     return jsonObject
   }
 
@@ -96,9 +89,11 @@ export class XmlHttpResponseDelegate {
   toJSON() {
     return this.toObject()
   }
+
+
 }
 
-export class XmlHttpResponseDelegateBuilder {
+export class XmlHttpRequestBuilder {
   /**
    * @constructor
    */
@@ -204,3 +199,4 @@ export class XmlHttpResponseDelegateBuilder {
     return builder
   }
 }
+

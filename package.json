@@ -1,7 +1,7 @@
 {
   "name": "xmlhttp-requester",
   "version": "0.0.0-dev",
-  "description": "Generic synchronous Http requester for flexio service clients",
+  "description": "Generic synchronous/asynchronous Http requester for flexio service clients",
   "main": "index.js",
   "module": "index.js",
   "repository": "https://github.com/flexiooss/xmlhttp-requester.git",
@@ -29,6 +29,11 @@
     "test": {
       "tester": "code-altimeter-js",
       "path": "src/test"
+    },
+    "generate-sources": {
+      "value-objects": {
+        "extension": ".spec"
+      }
     }
   }
 }

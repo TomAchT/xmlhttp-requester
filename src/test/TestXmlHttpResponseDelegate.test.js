@@ -1,7 +1,7 @@
 /* global runTest */
 import {TestCase} from 'code-altimeter-js'
 import {StringArray} from 'flexio-jshelpers'
-import {StringArrayMapBuilder} from '../js/StringArrayMap'
+import {StringArrayMapBuilder} from '../js/types/StringArrayMap'
 import {XmlHttpResponseDelegateBuilder} from '../js/XmlHttpResponseDelegate'
 
 const assert = require('assert')
