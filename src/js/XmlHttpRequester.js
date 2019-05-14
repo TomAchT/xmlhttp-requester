@@ -1,88 +1,93 @@
-/* global URL,XMLHttpRequest */
-import {assertType, isString, isNull, StringArray, isNumber} from 'flexio-jshelpers'
-import {XmlHttpResponseDelegate, XmlHttpResponseDelegateBuilder} from './XmlHttpResponseDelegate'
-import {StringArrayMap, StringArrayMapBuilder} from './types/StringArrayMap'
+import {assertType, isString, isNull, globalFlexioImport} from 'flexio-jshelpers'
+import {StringArrayMap} from './types/StringArrayMap'
 
 /**
  * @implements {HttpRequester}
  */
 export class XmlHttpRequester {
-  constructor() {
-    /**
-     *
-     * @type {?StringArrayMap}
-     * @protected
-     */
-    this._headers = new Map()
-    /**
-     *
-     * @type {?URL}
-     * @protected
-     */
-    this._path = null
-    /**
-     *
-     * @type {URLSearchParams}
-     * @protected
-     */
-    this._parameters = new URLSearchParams()
-  }
-
   /**
-   * @return {ResponseDelegate}
+   *
+   * @param {ExecutorRequesterInterface} executor
+   * @param {?XmlHttpRequestDelegate} [xmlhttpRequestDelegate=null]
    */
-  get() {
-    return this._exec('GET')
+  constructor(executor, xmlhttpRequestDelegate = null) {
+    /**
+     *
+     * @type {ExecutorRequesterInterface}
+     * @protected
+     */
+    this._executor = executor
+    /**
+     * @type {?XmlHttpRequestDelegate}
+     * @protected
+     */
+    this._requestDelegate = xmlhttpRequestDelegate
+
+    /**
+     *
+     * @type {XmlHttpRequestDelegateBuilder}
+     * @protected
+     */
+    this._xmlhttpRequestDelegateBuilder = globalFlexioImport.io.flexio.xmlhttp_requester.types.XmlHttpRequestDelegateBuilder.initEmpty()
   }
 
   /**
+   *
+   * @return {XmlHttpRequestDelegate}
+   */
+  requestDelegate() {
+    this._ensureHaveRequestDelegate()
+    return this._requestDelegate
+  }
+
+  /**
+   *
+   * @param {ExecutorRequesterInterface~executionClb} callback
+   */
+  get(callback) {
+    this._executor.get(this.requestDelegate(), callback)
+  }
+
+  /**
+   * @param {ExecutorRequesterInterface~executionClb} callback
    * @param {?string} [contentType=null]
    * @param {?string} [body=null]
-   * @return {ResponseDelegate}
    */
-  post(contentType = null, body = null) {
-    if (!isNull(contentType)) {
-      this.header('content-type', contentType)
-    }
-    return this._exec('POST', body)
+  post(callback, contentType = null, body = null) {
+    this._executor.post(this.requestDelegate(), callback, contentType, body)
   }
 
   /**
+   * @param {ExecutorRequesterInterface~executionClb} callback
    * @param {?string} contentType
    * @param {?string} body
-   * @return {ResponseDelegate}
    */
-  put(contentType = null, body = null) {
-    if (!isNull(contentType)) {
-      this.header('content-type', contentType)
-    }
-    return this._exec('PUT', body)
+  put(callback, contentType = null, body = null) {
+    this._executor.put(this.requestDelegate(), callback, contentType, body)
   }
 
   /**
+   * @param {ExecutorRequesterInterface~executionClb} callback
+   * @param {?string} callback
    * @param {?string} contentType
    * @param {?string} body
-   * @return {ResponseDelegate}
    */
-  patch(contentType = null, body = null) {
-    if (!isNull(contentType)) {
-      this.header('content-type', contentType)
-    }
-    return this._exec('PATCH', body)
+  patch(callback, contentType = null, body = null) {
+    this._executor.patch(this.requestDelegate(), callback, contentType, body)
   }
 
   /**
-   * @return {ResponseDelegate}
+   * @param {ExecutorRequesterInterface~executionClb} callback
    */
-  delete() {
-    return this._exec('DELETE')
+  delete(callback) {
+    this._executor.delete(this.requestDelegate(), callback)
   }
 
   /**
-   * @return {ResponseDelegate}
+   * @param {ExecutorRequesterInterface~executionClb} callback
    */
-  head() {
-    return this._exec('HEAD')
+  head(callback) {
+    this._executor.head(this.requestDelegate(), callback)
   }
 
   /**
@@ -91,8 +96,7 @@ export class XmlHttpRequester {
    * @return {this}
    */
   parameter(name, value) {
-    assertType(isString(name) && (isString(value) || isNull(value)), 'XmlHttpRequester:parameter: name and value should be string or null')
-    this._parameters.set(name, value)
+    this._xmlhttpRequestDelegateBuilder.parameter(name, value)
     return this
   }
 
@@ -102,11 +106,7 @@ export class XmlHttpRequester {
    * @return {this}
    */
   arrayParameter(name, values) {
-    assertType(isString(name), 'XmlHttpRequester:arrayParameter: name should be string or null')
-    this._parameters.delete(name)
-    for (const v in new StringArray(...values)) {
-      this._parameters.append(name, v)
-    }
+    this._xmlhttpRequestDelegateBuilder.arrayParameter(name, values)
     return this
   }
 
@@ -116,8 +116,7 @@ export class XmlHttpRequester {
    * @return {this}
    */
   header(name, value) {
-    assertType(isString(name) && (isString(value) || isNull(value)), 'XmlHttpRequester:header: name and value should be string or null')
-    this._headers.set(name, value)
+    this._xmlhttpRequestDelegateBuilder.header(name, value)
     return this
   }
 
@@ -127,7 +126,6 @@ export class XmlHttpRequester {
    * @return {this}
    */
   XAccount(account) {
-    assertType(isString(account) || isNull(account), 'XmlHttpRequester:Account: `account` should be string or null')
     return this.header('X-account', account)
   }
 
@@ -137,7 +135,6 @@ export class XmlHttpRequester {
    * @return {this}
    */
   AuthorizationBearer(token) {
-    assertType(isString(token) || isNull(token), 'XmlHttpRequester:Account: `token` should be string or null')
     return this.header('Authorization', 'Bearer ' + token)
   }
 
@@ -147,8 +144,7 @@ export class XmlHttpRequester {
    * @return {this}
    */
   arrayHeader(name, values) {
-    assertType(isString(name), 'XmlHttpRequester:arrayHeader: name should be string or null')
-    this._headers.set(name, new StringArray(...values))
+    this._xmlhttpRequestDelegateBuilder.arrayHeader(name, values)
     return this
   }
 
@@ -158,7 +154,7 @@ export class XmlHttpRequester {
    */
   path(path) {
     assertType(isString(path) || isNull(path), 'XmlHttpRequester:path: path should be string or null')
-    this._path = new URL(path)
+    this._xmlhttpRequestDelegateBuilder = new globalFlexioImport.io.flexio.xmlhttp_requester.types.URLExtended(path)
     return this
   }
 
@@ -166,11 +162,7 @@ export class XmlHttpRequester {
    * @returns {object}
    */
   toObject() {
-    const jsonObject = {}
-    jsonObject.headers = this._headers.toObject()
-    jsonObject.parameters = this._parameters
-    jsonObject.path = this._path
-    return jsonObject
+    return this.requestDelegate().toObject()
   }
 
   /**
@@ -180,183 +172,75 @@ export class XmlHttpRequester {
     return this.toObject()
   }
 
-  /**
-   * @param {string} method
-   * @param {?string} [body=null]
-   * @return {XmlHttpResponseDelegate}
-   * @protected
-   */
-  _exec(method, body = null) {
-    assertType(isString(method), 'InitRequestBuilder:method value should be a string')
-    assertType(['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'HEAD'].includes(method), 'InitRequestBuilder:method value should be in [\'GET\', \'POST\', \'PATCH\', \'PUT\', \'DELETE\', \'HEAD\']')
-    /**
-     *
-     * @type {XMLHttpRequest}
-     */
-    const request = new XMLHttpRequest()
-    request.open(method, this._buildPath(), false)
-    this._requestHeaders(request)
-    request.send(body)
-
-    return new XmlHttpResponseDelegateBuilder()
-      .code(request.status)
-      .payload(request.responseText)
-      .headers(this._responseHeaders(request))
-      .build()
-  }
-
-  /**
-   *
-   * @param  {XMLHttpRequest} request
-   * @protected
-   */
-  _requestHeaders(request) {
-    this._headers.forEach((value, header) => {
-      if (header === 'content-type') {
-        request.overrideMimeType(value)
-      }
-      if (value instanceof StringArray) {
-        /**
-         * @type {StringArray}
-         */
-        value.forEach((v) => {
-          request.setRequestHeader(header, v)
-        })
-      } else {
-        request.setRequestHeader(header, value)
-      }
-    })
-  }
-
-  /**
-   *
-   * @param {XMLHttpRequest} request
-   * @return {StringArrayMap}
-   * @protected
-   */
-  _responseHeaders(request) {
-    const headers = request.getAllResponseHeaders()
-
-    const arr = headers.trim().split(/[\r\n]+/)
-    /**
-     *
-     * @type {StringArrayMap}
-     */
-    const headerMap = new StringArrayMap()
-
-    arr.forEach(function(line) {
-      const parts = line.split(': ')
-      const header = parts.shift()
-      const value = parts.join(': ')
-      if (headerMap.has(header)) {
-        headerMap.get(header).push(value)
-      } else {
-        headerMap.set(header, new StringArray(value))
-      }
-    })
-
-    return headerMap
-  }
-
-  /**
-   * @return {string}
-   * @protected
-   */
-  _buildPath() {
-    if (this._parameters.toString().length) {
-      return new URL(this._path.href + '?' + this._parameters.toString()).toString()
+  _ensureHaveRequestDelegate() {
+    if (isNull(this._requestDelegate)) {
+      this._requestDelegate = this._xmlhttpRequestDelegateBuilder.build()
     }
-    return this._path.toString()
   }
 }
 
-export class XmlHttpResponseDelegateBuilder {
+export class XmlHttpRequesterBuilder {
   /**
    * @constructor
    */
   constructor() {
     /**
      *
-     * @type {?number}
+     * @type {?XmlHttpRequestDelegate}
      * @private
      */
-    this.__code = null
+    this.__xmlhttpRequestDelegate = null
     /**
      *
-     * @type {?string}
+     * @type {?ExecutorRequesterInterface}
      * @private
      */
-    this.__payload = null
-    /**
-     *
-     * @type {?StringArrayMap}
-     * @private
-     */
-    this.__headers = null
+    this.__executor = null
   }
 
   /**
-   * @param {?number} [code=null]
-   * @returns {XmlHttpResponseDelegateBuilder}
+   * @param {?XmlHttpRequestDelegate} [xmlhttpRequestDelegate=null]
+   * @returns {XmlHttpRequesterBuilder}
    */
-  code(code) {
-    assertType(isNull(code) || isNumber(code), 'XmlHttpResponseDelegateBuilder: `code` should be a number')
-    this.__code = code
+  xmlhttpRequestDelegate(xmlhttpRequestDelegate) {
+    assertType(isNull(xmlhttpRequestDelegate) || xmlhttpRequestDelegate instanceof StringArrayMap, 'XmlHttpRequesterBuilder: `xmlhttpRequestDelegate` should be a StringArrayMap')
+    this.__xmlhttpRequestDelegate = xmlhttpRequestDelegate
     return this
   }
 
   /**
-   * @param {?string} [payload=null]
-   * @returns {XmlHttpResponseDelegateBuilder}
+   *
+   * @param {ExecutorRequesterInterface} executor
+   * @return {XmlHttpRequesterBuilder}
    */
-  payload(payload) {
-    assertType(isNull(payload) || isString(payload), 'XmlHttpResponseDelegateBuilder: `payload` should be a string')
-    this.__payload = payload
+  executor(executor) {
+    this.__executor = executor
     return this
   }
 
   /**
-   * @param {?StringArrayMap} headers
-   * @returns {XmlHttpResponseDelegateBuilder}
-   */
-  headers(headers) {
-    assertType(isNull(headers) || headers instanceof StringArrayMap, 'XmlHttpResponseDelegateBuilder: `headers` should be a StringArrayMap')
-    this.__headers = headers
-    return this
-  }
-
-  /**
-   * @returns {XmlHttpResponseDelegate}
+   * @returns {XmlHttpRequester}
    */
   build() {
-    return new XmlHttpResponseDelegate(this.__code, this.__payload, this.__headers)
+    return new XmlHttpRequester(this.__executor, this.__xmlhttpRequestDelegate)
   }
 
   /**
    * @param {object} jsonObject
-   * @returns {XmlHttpResponseDelegateBuilder}
+   * @returns {XmlHttpRequesterBuilder}
    */
   static fromObject(jsonObject) {
-    const builder = new XmlHttpResponseDelegateBuilder()
-    if (jsonObject['code'] !== undefined) {
-      builder.code(jsonObject['code'])
-    }
-    if (jsonObject['payload'] !== undefined) {
-      builder.payload(jsonObject['payload'])
-    }
-    if (jsonObject['headers'] !== undefined) {
-      builder.headers(
-        StringArrayMapBuilder
-          .fromObject(jsonObject['headers'])
-          .build()
-      )
-    }
+    const xmlHttpRequestDelegate = globalFlexioImport.io.flexio.xmlhttp_requester.types.XmlHttpRequestDelegateBuilder.fromObject(jsonObject).build()
+
+    const builder = new XmlHttpRequesterBuilder()
+    builder.xmlhttpRequestDelegate(xmlHttpRequestDelegate)
+
     return builder
   }
 
   /**
    * @param {string} json
-   * @returns {XmlHttpResponseDelegateBuilder}
+   * @returns {XmlHttpRequesterBuilder}
    */
   static fromJson(json) {
     const jsonObject = JSON.parse(json)
@@ -364,16 +248,12 @@ export class XmlHttpResponseDelegateBuilder {
   }
 
   /**
-   * @param {XmlHttpResponseDelegate} instance
-   * @returns {XmlHttpResponseDelegateBuilder}
+   * @param {XmlHttpRequester} instance
+   * @returns {XmlHttpRequesterBuilder}
    */
   static from(instance) {
-    const builder = new XmlHttpResponseDelegateBuilder()
-    builder.code(instance.code())
-    builder.headers(instance.headers())
-    builder.code(instance.code())
-
+    const builder = new XmlHttpRequesterBuilder()
+    builder.xmlhttpRequestDelegate(instance.requestDelegate())
     return builder
   }
 }
-

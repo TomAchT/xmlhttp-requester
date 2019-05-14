@@ -20,7 +20,7 @@ export class URLExtended extends URL {
   }
 }
 
-export class UrlExtendedBuilder {
+export class URLExtendedBuilder {
   constructor() {
     /**
      *
@@ -33,27 +33,27 @@ export class UrlExtendedBuilder {
   /**
    *
    * @param {?string} href
-   * @return {UrlExtendedBuilder}
+   * @return {URLExtendedBuilder}
    */
   href(href) {
-    assertType(isNull(href) || isString(href), 'UrlExtendedBuilder:href: arg should be a string or null')
+    assertType(isNull(href) || isString(href), 'URLExtendedBuilder:href: arg should be a string or null')
     this.__href = href
     return this
   }
 
   /**
    * @param {Object} jsonObject
-   * @returns {UrlExtendedBuilder}
+   * @returns {URLExtendedBuilder}
    */
   static fromObject(jsonObject) {
-    const builder = new UrlExtendedBuilder()
+    const builder = new URLExtendedBuilder()
     builder.href(jsonObject.href)
     return builder
   }
 
   /**
    * @param {string} json
-   * @returns {UrlExtendedBuilder}
+   * @returns {URLExtendedBuilder}
    */
   static fromJson(json) {
     const jsonObject = JSON.parse(json)
@@ -62,10 +62,10 @@ export class UrlExtendedBuilder {
 
   /**
    * @param {URLExtended} instance
-   * @returns {UrlExtendedBuilder}
+   * @returns {URLExtendedBuilder}
    */
   static from(instance) {
-    const builder = new UrlExtendedBuilder()
+    const builder = new URLExtendedBuilder()
     builder.href(instance.href)
     return builder
   }
