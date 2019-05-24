@@ -1,5 +1,7 @@
-import {assertType, isString, isNull, globalFlexioImport} from 'flexio-jshelpers'
+import {assertType, isString, isNull, globalFlexioImport, HttpRequester} from 'flexio-jshelpers'
 import {StringArrayMap} from './types/StringArrayMap'
+import {ExecutorRequesterInterface} from 'Executor/ExecutorRequesterInterface'
+import {XmlHttpRequestDelegate} from 'types/XmlHttpRequestDelegate'
 
 /**
  * @implements {HttpRequester}
@@ -11,6 +13,16 @@ export class XmlHttpRequester {
    * @param {?XmlHttpRequestDelegate} [xmlhttpRequestDelegate=null]
    */
   constructor(executor, xmlhttpRequestDelegate = null) {
+
+    assertType(
+      executor instanceof ExecutorRequesterInterface,
+      'XmlHttpRequester:constructor: `executor` should be an instance of ExecutorRequesterInterface'
+    )
+    assertType(
+      isNull(xmlhttpRequestDelegate) || xmlhttpRequestDelegate instanceof XmlHttpRequestDelegate,
+      'XmlHttpRequester:constructor: `xmlhttpRequestDelegate` should be an instance of XmlHttpRequestDelegate or Null'
+    )
+
     /**
      *
      * @type {ExecutorRequesterInterface}

@@ -1,12 +1,15 @@
 'use strict'
 /* global self:false, onmessage:false, postMessage:false, Request:false, URL:false, XMLHttpRequest:false, Headers:false */
 
-import {globalFlexioImport} from 'flexio-jshelpers'
 import '../../../import'
+import {globalFlexioImport} from 'flexio-jshelpers'
 import {ExecutorWithoutClb} from './ExecutorWithoutClb'
 
 self.onmessage = (e) => {
-  const requestMessageWorker = globalFlexioImport.io.flexio.xmlhttp_requester.types.RequestMessageWorkerBuilder.fromObject(e.data)
+
+  const requestMessageWorker = globalFlexioImport.io.flexio.xmlhttp_requester.types.RequestMessageWorkerBuilder
+    .fromObject(e.data)
+    .build()
 
   const requester = new globalFlexioImport.io.flexio.xmlhttp_requester.types.XmlHttpRequesterBuilder()
     .xmlhttpRequestDelegate(requestMessageWorker.requestDelegate())
@@ -32,5 +35,7 @@ self.onmessage = (e) => {
     case 'HEAD':
       self.postMessage(requester.head(null))
       break
+    default:
+      self.postMessage(globalFlexioImport.io.flexio.xmlhttp_requester.types.XmlHttpRequestDelegateBuilder.build())
   }
 }

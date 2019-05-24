@@ -11,16 +11,14 @@ import {ExecutorRequesterInterface} from './ExecutorRequesterInterface'
 export class Executor extends ExecutorRequesterInterface {
   /**
    *
-   * @param {?XmlHttpRequestDelegate} [xmlhttpRequestDelegate=null]
+   * @param {XmlHttpRequestDelegate} xmlhttpRequestDelegate
+   * @return {XmlHttpRequestDelegate}
+   * @throws {TypeError}
+   * @protected
    */
-  constructor(xmlhttpRequestDelegate) {
-    super()
+  _checkRequestType(xmlhttpRequestDelegate) {
     assertType(xmlhttpRequestDelegate instanceof globalFlexioImport.io.flexio.xmlhttp_requester.types.XmlHttpRequestDelegate, 'Executor:xmlhttpRequestDelegate arg should be an instance of XmlHttpRequestDelegate')
-    /**
-     * @type {?XmlHttpRequestDelegate}
-     * @protected
-     */
-    this._requestDelegate = xmlhttpRequestDelegate
+    return xmlhttpRequestDelegate
   }
 
   /**
@@ -28,7 +26,12 @@ export class Executor extends ExecutorRequesterInterface {
    * @param {ExecutorRequesterInterface~executionClb} callback
    */
   get(xmlhttpRequestDelegate, callback) {
-    callback(this.exec(xmlhttpRequestDelegate, 'GET'))
+    callback(
+      this.exec(
+        this._checkRequestType(xmlhttpRequestDelegate),
+        'GET'
+      )
+    )
   }
 
   /**
@@ -38,10 +41,15 @@ export class Executor extends ExecutorRequesterInterface {
    * @param {?string} [body=null]
    */
   post(xmlhttpRequestDelegate, callback, contentType = null, body = null) {
-    if (!isNull(contentType)) {
-      this.header('content-type', contentType)
-    }
-    callback(this.exec(xmlhttpRequestDelegate, 'POST', body))
+    callback(
+      this.exec(
+        this._checkRequestType(
+          this._ensureContentType(xmlhttpRequestDelegate, contentType)
+        ),
+        'POST',
+        body
+      )
+    )
   }
 
   /**
@@ -51,10 +59,15 @@ export class Executor extends ExecutorRequesterInterface {
    * @param {?string} body
    */
   put(xmlhttpRequestDelegate, callback, contentType = null, body = null) {
-    if (!isNull(contentType)) {
-      this.header('content-type', contentType)
-    }
-    callback(this.exec(xmlhttpRequestDelegate, 'PUT', body))
+    callback(
+      this.exec(
+        this._checkRequestType(
+          this._ensureContentType(xmlhttpRequestDelegate, contentType)
+        ),
+        'PUT',
+        body
+      )
+    )
   }
 
   /**
@@ -64,10 +77,15 @@ export class Executor extends ExecutorRequesterInterface {
    * @param {?string} body
    */
   patch(xmlhttpRequestDelegate, callback, contentType = null, body = null) {
-    if (!isNull(contentType)) {
-      this.header('content-type', contentType)
-    }
-    callback(this.exec(xmlhttpRequestDelegate, 'PATCH', body))
+    callback(
+      this.exec(
+        this._checkRequestType(
+          this._ensureContentType(xmlhttpRequestDelegate, contentType)
+        ),
+        'PATCH',
+        body
+      )
+    )
   }
 
   /**
@@ -83,7 +101,12 @@ export class Executor extends ExecutorRequesterInterface {
    * @param {ExecutorRequesterInterface~executionClb} callback
    */
   head(xmlhttpRequestDelegate, callback) {
-    callback(this.exec(xmlhttpRequestDelegate, 'HEAD'))
+    callback(
+      this.exec(
+        this._checkRequestType(xmlhttpRequestDelegate),
+        'HEAD'
+      )
+    )
   }
 
   /**
@@ -119,21 +142,22 @@ export class Executor extends ExecutorRequesterInterface {
    * @protected
    */
   _setRequestHeaders(request, xmlhttpRequestDelegate) {
-    xmlhttpRequestDelegate.headers().forEach((value, header) => {
-      if (header === 'content-type') {
-        request.overrideMimeType(value)
-      }
-      if (value instanceof StringArray) {
-        /**
-         * @type {StringArray}
-         */
-        value.forEach((v) => {
-          request.setRequestHeader(header, v)
-        })
-      } else {
-        request.setRequestHeader(header, value)
-      }
-    })
+    xmlhttpRequestDelegate.headers()
+      .forEach((value, header) => {
+        if (header === 'content-type') {
+          request.overrideMimeType(value)
+        }
+        if (value instanceof StringArray) {
+          /**
+           * @type {StringArray}
+           */
+          value.forEach((v) => {
+            request.setRequestHeader(header, v)
+          })
+        } else {
+          request.setRequestHeader(header, value)
+        }
+      })
   }
 
   /**
@@ -173,9 +197,38 @@ export class Executor extends ExecutorRequesterInterface {
    */
   _buildPath(xmlhttpRequestDelegate) {
     if (xmlhttpRequestDelegate.parameters().toString().length) {
-      return new globalFlexioImport.io.flexio.xmlhttp_requester.types.URLExtended(xmlhttpRequestDelegate.path().href + '?' + xmlhttpRequestDelegate.parameters().toString())
+      return new globalFlexioImport.io.flexio.xmlhttp_requester.types.URLExtendedBuilder()
+        .href(xmlhttpRequestDelegate.path().href + '?' + xmlhttpRequestDelegate.parameters().toString())
+        .build()
         .toString()
     }
     return xmlhttpRequestDelegate.path().toString()
+  }
+
+  /**
+   * @param {XmlHttpRequestDelegate} xmlhttpRequestDelegate
+   * @param {string} name
+   * @param {?string} value
+   * @return {XmlHttpRequestDelegate}
+   * @protected
+   */
+  _setHeader(xmlhttpRequestDelegate, name, value) {
+    const builder = globalFlexioImport.io.flexio.xmlhttp_requester.types.XmlHttpRequestDelegateBuilder.from(xmlhttpRequestDelegate)
+    builder.header(name, value)
+    return builder.build()
+  }
+
+  /**
+   *
+   * @param {XmlHttpRequestDelegate} xmlhttpRequestDelegate
+   * @param {?string} contentType
+   * @return {XmlHttpRequestDelegate}
+   * @protected
+   */
+  _ensureContentType(xmlhttpRequestDelegate, contentType) {
+    if (!isNull(contentType)) {
+      return this._setHeader(xmlhttpRequestDelegate, 'content-type', contentType)
+    }
+    return xmlhttpRequestDelegate
   }
 }

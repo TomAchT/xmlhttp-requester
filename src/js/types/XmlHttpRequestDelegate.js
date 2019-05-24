@@ -1,5 +1,4 @@
-import {globalScope, FLEXIO_IMPORT_OBJECT, globalFlexioImport} from 'flexio-jshelpers'
-import {assertType, isString, isNull, StringArray, deepFreezeSeal} from 'flexio-jshelpers'
+import {assertType, isString, isNull, StringArray, deepFreezeSeal, globalFlexioImport} from 'flexio-jshelpers'
 
 class XmlHttpRequestDelegate {
   /**
