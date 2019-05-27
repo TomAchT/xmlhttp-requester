@@ -1,7 +1,7 @@
 import {assertType, isString, isNull, globalFlexioImport, HttpRequester} from 'flexio-jshelpers'
 import {StringArrayMap} from './types/StringArrayMap'
-import {ExecutorRequesterInterface} from 'Executor/ExecutorRequesterInterface'
-import {XmlHttpRequestDelegate} from 'types/XmlHttpRequestDelegate'
+import {ExecutorRequesterInterface} from './Executor/ExecutorRequesterInterface'
+import {XmlHttpRequestDelegate} from './types/XmlHttpRequestDelegate'
 
 /**
  * @implements {HttpRequester}

@@ -1,10 +1,10 @@
 import {globalFlexioImport, deepKeyAssigner} from 'flexio-jshelpers'
-import {StringArrayMap, StringArrayMapBuilder} from 'src/js/types/StringArrayMap'
-import {URLExtended, URLExtendedBuilder} from 'src/js/types/URLExtended'
-import {XmlHttpRequestDelegate, XmlHttpRequestDelegateBuilder} from 'src/js/types/XmlHttpRequestDelegate'
-import {URLSearchParamsExtended, URLSearchParamsExtendedBuilder} from 'src/js/types/URLSearchParamsExtended'
-import {XmlHttpRequester, XmlHttpRequesterBuilder} from 'src/js/XmlHttpRequester'
-import {RequestMessageWorker, RequestMessageWorkerBuilder} from 'src/js/types/RequestMessageWorker'
+import {StringArrayMap, StringArrayMapBuilder} from './src/js/types/StringArrayMap'
+import {URLExtended, URLExtendedBuilder} from './src/js/types/URLExtended'
+import {XmlHttpRequestDelegate, XmlHttpRequestDelegateBuilder} from './src/js/types/XmlHttpRequestDelegate'
+import {URLSearchParamsExtended, URLSearchParamsExtendedBuilder} from './src/js/types/URLSearchParamsExtended'
+import {XmlHttpRequester, XmlHttpRequesterBuilder} from './src/js/XmlHttpRequester'
+import {RequestMessageWorker, RequestMessageWorkerBuilder} from './src/js/types/RequestMessageWorker'
 
 /**
  * @property {StringArrayMap} StringArrayMap

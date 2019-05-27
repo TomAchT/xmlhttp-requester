@@ -3,7 +3,7 @@
 import {globalFlexioImport} from 'flexio-jshelpers'
 import {XmlHttpResponseDelegateBuilder} from '../XmlHttpResponseDelegate'
 import {Executor} from './Executor'
-import Worker from 'Executor.worker'
+import Worker from './Executor.worker'
 
 /**
  * @implements {ExecutorRequesterInterface}
