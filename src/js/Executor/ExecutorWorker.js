@@ -1,6 +1,6 @@
 /* global XMLHttpRequest */
 
-import {globalFlexioImport} from 'flexio-jshelpers'
+import {globalFlexioImport} from '@flexio-oss/global-import-registry'
 import {XmlHttpResponseDelegateBuilder} from '../XmlHttpResponseDelegate'
 import {Executor} from './Executor'
 import Worker from './Executor.worker'
@@ -18,7 +18,7 @@ export class ExecutorWorker extends Executor {
   _initWorker(requestMessageWorker) {
     const worker = new Worker()
     worker.postMessage(
-      requestMessageWorker
+      requestMessageWorker.toObject()
     )
     return worker
   }

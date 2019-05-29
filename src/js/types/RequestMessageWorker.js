@@ -1,4 +1,6 @@
-import {globalFlexioImport, assert, isNull, deepFreezeSeal, isString} from 'flexio-jshelpers'
+import {assert, isNull, isString} from '@flexio-oss/assert'
+import {deepFreezeSeal} from '@flexio-oss/js-type-helpers'
+import {globalFlexioImport} from '@flexio-oss/global-import-registry'
 
 class RequestMessageWorker {
   /**

@@ -1,40 +1,46 @@
-import {globalFlexioImport, deepKeyAssigner} from 'flexio-jshelpers'
-import {StringArrayMap, StringArrayMapBuilder} from './src/js/types/StringArrayMap'
-import {URLExtended, URLExtendedBuilder} from './src/js/types/URLExtended'
+import {globalFlexioImport} from '@flexio-oss/global-import-registry'
+import {deepKeyAssigner} from '@flexio-oss/js-type-helpers'
+import {
+  StringArrayMap,
+  StringArrayMapBuilder,
+  URLExtended,
+  URLExtendedBuilder,
+  URLSearchParamsExtended,
+  URLSearchParamsExtendedBuilder
+} from '@flexio-oss/extended-flex-types'
 import {XmlHttpRequestDelegate, XmlHttpRequestDelegateBuilder} from './src/js/types/XmlHttpRequestDelegate'
-import {URLSearchParamsExtended, URLSearchParamsExtendedBuilder} from './src/js/types/URLSearchParamsExtended'
 import {XmlHttpRequester, XmlHttpRequesterBuilder} from './src/js/XmlHttpRequester'
 import {RequestMessageWorker, RequestMessageWorkerBuilder} from './src/js/types/RequestMessageWorker'
 
 /**
  * @property {StringArrayMap} StringArrayMap
  */
-deepKeyAssigner(globalFlexioImport, 'io.flexio.xmlhttp_requester.types.StringArrayMap', StringArrayMap)
+deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.StringArrayMap', StringArrayMap)
 
 /**
  * @property {StringArrayMapBuilder}  StringArrayMapBuilder
  */
-deepKeyAssigner(globalFlexioImport, 'io.flexio.xmlhttp_requester.types.StringArrayMapBuilder', StringArrayMapBuilder)
+deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.StringArrayMapBuilder', StringArrayMapBuilder)
 
 /**
  * @property {URLExtended} URLExtended
  */
-deepKeyAssigner(globalFlexioImport, 'io.flexio.types.URLExtended', URLExtended)
+deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.URLExtended', URLExtended)
 
 /**
  * @property {URLExtendedBuilder}  URLExtendedBuilder
  */
-deepKeyAssigner(globalFlexioImport, 'io.flexio.types.URLExtendedBuilder', URLExtendedBuilder)
+deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.URLExtendedBuilder', URLExtendedBuilder)
 
 /**
  * @property {URLSearchParamsExtended} URLSearchParamsExtended
  */
-deepKeyAssigner(globalFlexioImport, 'io.flexio.types.URLSearchParamsExtended', URLSearchParamsExtended)
+deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.URLSearchParamsExtended', URLSearchParamsExtended)
 
 /**
  * @property {URLSearchParamsExtendedBuilder}  URLSearchParamsExtendedBuilder
  */
-deepKeyAssigner(globalFlexioImport, 'io.flexio.types.URLSearchParamsExtendedBuilder', URLSearchParamsExtendedBuilder)
+deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.URLSearchParamsExtendedBuilder', URLSearchParamsExtendedBuilder)
 
 /**
  * @property {XmlHttpRequestDelegate} XmlHttpRequestDelegate

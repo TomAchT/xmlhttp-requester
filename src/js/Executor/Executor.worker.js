@@ -2,7 +2,7 @@
 /* global self:false, onmessage:false, postMessage:false, Request:false, URL:false, XMLHttpRequest:false, Headers:false */
 
 import '../../../import'
-import {globalFlexioImport} from 'flexio-jshelpers'
+import {globalFlexioImport} from '@flexio-oss/global-import-registry'
 import {ExecutorWithoutClb} from './ExecutorWithoutClb'
 
 self.onmessage = (e) => {

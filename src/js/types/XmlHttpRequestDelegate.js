@@ -1,4 +1,7 @@
-import {assertType, isString, isNull, StringArray, deepFreezeSeal, globalFlexioImport} from 'flexio-jshelpers'
+import {assertType, isString, isNull} from '@flexio-oss/assert'
+import {StringArray} from '@flexio-oss/extended-flex-types'
+import {globalFlexioImport} from '@flexio-oss/global-import-registry'
+import {deepFreezeSeal} from '@flexio-oss/js-type-helpers'
 
 class XmlHttpRequestDelegate {
   /**
@@ -102,8 +105,8 @@ class XmlHttpRequestDelegateBuilder {
    */
   static initEmpty() {
     return new XmlHttpRequestDelegateBuilder()
-      .headers(new globalFlexioImport.io.flexio.xmlhttp_requester.types.StringArrayMap())
-      .parameters(new globalFlexioImport.io.flexio.xmlhttp_requester.types.URLSearchParamsExtended())
+      .headers(new globalFlexioImport.io.flexio.extended_flex_types.StringArrayMap())
+      .parameters(new globalFlexioImport.io.flexio.extended_flex_types.URLSearchParamsExtended())
   }
 
   /**
@@ -112,7 +115,7 @@ class XmlHttpRequestDelegateBuilder {
    */
   headers(headers) {
     if (!isNull(headers)) {
-      assertType(headers instanceof globalFlexioImport.io.flexio.xmlhttp_requester.types.StringArrayMap, 'headers should be a StringArrayMap')
+      assertType(headers instanceof globalFlexioImport.io.flexio.extended_flex_types.StringArrayMap, 'headers should be a StringArrayMap')
     }
     this._headers = headers
     return this
@@ -124,8 +127,8 @@ class XmlHttpRequestDelegateBuilder {
    * @return {XmlHttpRequestDelegateBuilder}
    */
   header(name, value) {
-    assertType(isString(name) && (isString(value) || isNull(value)), 'XmlHttpRequestDelegateBuilder:header: name and value should be string or null')
-    this._headers.set(name, value)
+    assertType(isString(name), 'XmlHttpRequestDelegateBuilder:arrayHeader: name should be string or null')
+    this._headers.set(name, new StringArray(value))
     return this
   }
 
@@ -146,7 +149,7 @@ class XmlHttpRequestDelegateBuilder {
    */
   path(path) {
     if (!isNull(path)) {
-      assertType(path instanceof globalFlexioImport.io.flexio.xmlhttp_requester.types.URLExtended, 'path should be a URLExtended')
+      assertType(path instanceof globalFlexioImport.io.flexio.extended_flex_types.URLExtended, 'path should be a URLExtended')
     }
     this._path = path
     return this
@@ -158,7 +161,7 @@ class XmlHttpRequestDelegateBuilder {
    */
   parameters(parameters) {
     if (!isNull(parameters)) {
-      assertType(parameters instanceof globalFlexioImport.io.flexio.xmlhttp_requester.types.URLSearchParamsExtended, 'parameters should be a URLSearchParamsExtended')
+      assertType(parameters instanceof globalFlexioImport.io.flexio.extended_flex_types.URLSearchParamsExtended, 'parameters should be a URLSearchParamsExtended')
     }
     this._parameters = parameters
     return this
@@ -203,13 +206,13 @@ class XmlHttpRequestDelegateBuilder {
   static fromObject(jsonObject) {
     var builder = new XmlHttpRequestDelegateBuilder()
     if (jsonObject['headers'] !== undefined) {
-      builder.headers(globalFlexioImport.io.flexio.xmlhttp_requester.types.StringArrayMapBuilder.fromObject(jsonObject['headers']).build())
+      builder.headers(globalFlexioImport.io.flexio.extended_flex_types.StringArrayMapBuilder.fromObject(jsonObject['headers']).build())
     }
     if (jsonObject['path'] !== undefined) {
-      builder.path(globalFlexioImport.io.flexio.xmlhttp_requester.types.URLExtendedBuilder.fromObject(jsonObject['path']).build())
+      builder.path(globalFlexioImport.io.flexio.extended_flex_types.URLExtendedBuilder.fromObject(jsonObject['path']).build())
     }
     if (jsonObject['parameters'] !== undefined) {
-      builder.parameters(globalFlexioImport.io.flexio.xmlhttp_requester.types.URLSearchParamsExtendedBuilder.fromObject(jsonObject['parameters']).build())
+      builder.parameters(globalFlexioImport.io.flexio.extended_flex_types.URLSearchParamsExtendedBuilder.fromObject(jsonObject['parameters']).build())
     }
     return builder
   }

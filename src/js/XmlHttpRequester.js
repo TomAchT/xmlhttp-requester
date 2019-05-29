@@ -1,5 +1,7 @@
-import {assertType, isString, isNull, globalFlexioImport, HttpRequester} from 'flexio-jshelpers'
-import {StringArrayMap} from './types/StringArrayMap'
+import {assertType, isString, isNull} from '@flexio-oss/assert'
+import {globalFlexioImport} from '@flexio-oss/global-import-registry'
+import {HttpRequester} from '@flexio-oss/js-helpers'
+import {StringArrayMap} from '@flexio-oss/extended-flex-types'
 import {ExecutorRequesterInterface} from './Executor/ExecutorRequesterInterface'
 import {XmlHttpRequestDelegate} from './types/XmlHttpRequestDelegate'
 
@@ -13,7 +15,6 @@ export class XmlHttpRequester {
    * @param {?XmlHttpRequestDelegate} [xmlhttpRequestDelegate=null]
    */
   constructor(executor, xmlhttpRequestDelegate = null) {
-
     assertType(
       executor instanceof ExecutorRequesterInterface,
       'XmlHttpRequester:constructor: `executor` should be an instance of ExecutorRequesterInterface'
@@ -55,27 +56,30 @@ export class XmlHttpRequester {
   /**
    *
    * @param {ExecutorRequesterInterface~executionClb} callback
+   * @return {ResponseDelegate}
    */
   get(callback) {
-    this._executor.get(this.requestDelegate(), callback)
+    return this._executor.get(this.requestDelegate(), callback)
   }
 
   /**
    * @param {ExecutorRequesterInterface~executionClb} callback
    * @param {?string} [contentType=null]
    * @param {?string} [body=null]
+   * @return {ResponseDelegate}
    */
   post(callback, contentType = null, body = null) {
-    this._executor.post(this.requestDelegate(), callback, contentType, body)
+    return this._executor.post(this.requestDelegate(), callback, contentType, body)
   }
 
   /**
    * @param {ExecutorRequesterInterface~executionClb} callback
    * @param {?string} contentType
    * @param {?string} body
+   * @return {ResponseDelegate}
    */
   put(callback, contentType = null, body = null) {
-    this._executor.put(this.requestDelegate(), callback, contentType, body)
+    return this._executor.put(this.requestDelegate(), callback, contentType, body)
   }
 
   /**
@@ -83,23 +87,26 @@ export class XmlHttpRequester {
    * @param {?string} callback
    * @param {?string} contentType
    * @param {?string} body
+   * @return {ResponseDelegate}
    */
   patch(callback, contentType = null, body = null) {
-    this._executor.patch(this.requestDelegate(), callback, contentType, body)
+    return this._executor.patch(this.requestDelegate(), callback, contentType, body)
   }
 
   /**
    * @param {ExecutorRequesterInterface~executionClb} callback
+   * @return {ResponseDelegate}
    */
   delete(callback) {
-    this._executor.delete(this.requestDelegate(), callback)
+    return this._executor.delete(this.requestDelegate(), callback)
   }
 
   /**
    * @param {ExecutorRequesterInterface~executionClb} callback
+   * @return {ResponseDelegate}
    */
   head(callback) {
-    this._executor.head(this.requestDelegate(), callback)
+    return this._executor.head(this.requestDelegate(), callback)
   }
 
   /**
@@ -166,7 +173,7 @@ export class XmlHttpRequester {
    */
   path(path) {
     assertType(isString(path) || isNull(path), 'XmlHttpRequester:path: path should be string or null')
-    this._xmlhttpRequestDelegateBuilder = new globalFlexioImport.io.flexio.xmlhttp_requester.types.URLExtended(path)
+    this._xmlhttpRequestDelegateBuilder = new globalFlexioImport.io.flexio.extended_flex_types.URLExtended(path)
     return this
   }
 
@@ -215,7 +222,8 @@ export class XmlHttpRequesterBuilder {
    * @returns {XmlHttpRequesterBuilder}
    */
   xmlhttpRequestDelegate(xmlhttpRequestDelegate) {
-    assertType(isNull(xmlhttpRequestDelegate) || xmlhttpRequestDelegate instanceof StringArrayMap, 'XmlHttpRequesterBuilder: `xmlhttpRequestDelegate` should be a StringArrayMap')
+    assertType(isNull(xmlhttpRequestDelegate) || xmlhttpRequestDelegate instanceof globalFlexioImport.io.flexio.xmlhttp_requester.types.XmlHttpRequestDelegate, 'XmlHttpRequesterBuilder: `xmlhttpRequestDelegate` should be a XmlHttpRequestDelegate')
+
     this.__xmlhttpRequestDelegate = xmlhttpRequestDelegate
     return this
   }

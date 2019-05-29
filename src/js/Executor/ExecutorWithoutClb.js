@@ -1,6 +1,6 @@
 /* global XMLHttpRequest */
 
-import {isNull} from 'flexio-jshelpers'
+import {isNull} from '@flexio-oss/assert'
 import {Executor} from './Executor'
 
 /**

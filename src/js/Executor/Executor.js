@@ -1,7 +1,8 @@
 /* global XMLHttpRequest */
 
-import {assertType, globalFlexioImport, isNull, isString, StringArray} from 'flexio-jshelpers'
-import {StringArrayMap} from '../types/StringArrayMap'
+import {assertType, isNull, isString} from '@flexio-oss/assert'
+import {StringArray, StringArrayMap} from '@flexio-oss/extended-flex-types'
+import {globalFlexioImport} from '@flexio-oss/global-import-registry'
 import {XmlHttpResponseDelegateBuilder} from '../XmlHttpResponseDelegate'
 import {ExecutorRequesterInterface} from './ExecutorRequesterInterface'
 
@@ -24,14 +25,15 @@ export class Executor extends ExecutorRequesterInterface {
   /**
    * @param {XmlHttpRequestDelegate} xmlhttpRequestDelegate
    * @param {ExecutorRequesterInterface~executionClb} callback
+   * @return {ResponseDelegate}
    */
   get(xmlhttpRequestDelegate, callback) {
-    callback(
-      this.exec(
-        this._checkRequestType(xmlhttpRequestDelegate),
-        'GET'
-      )
+    const response = this.exec(
+      this._checkRequestType(xmlhttpRequestDelegate),
+      'GET'
     )
+    callback(response)
+    return response
   }
 
   /**
@@ -39,17 +41,18 @@ export class Executor extends ExecutorRequesterInterface {
    * @param {ExecutorRequesterInterface~executionClb} callback
    * @param {?string} [contentType=null]
    * @param {?string} [body=null]
+   * @return {ResponseDelegate}
    */
   post(xmlhttpRequestDelegate, callback, contentType = null, body = null) {
-    callback(
-      this.exec(
-        this._checkRequestType(
-          this._ensureContentType(xmlhttpRequestDelegate, contentType)
-        ),
-        'POST',
-        body
-      )
+    const response = this.exec(
+      this._checkRequestType(
+        this._ensureContentType(xmlhttpRequestDelegate, contentType)
+      ),
+      'POST',
+      body
     )
+    callback(response)
+    return response
   }
 
   /**
@@ -57,17 +60,19 @@ export class Executor extends ExecutorRequesterInterface {
    * @param {ExecutorRequesterInterface~executionClb} callback
    * @param {?string} contentType
    * @param {?string} body
+   * @return {ResponseDelegate}
    */
   put(xmlhttpRequestDelegate, callback, contentType = null, body = null) {
-    callback(
-      this.exec(
-        this._checkRequestType(
-          this._ensureContentType(xmlhttpRequestDelegate, contentType)
-        ),
-        'PUT',
-        body
-      )
+    const response = this.exec(
+      this._checkRequestType(
+        this._ensureContentType(xmlhttpRequestDelegate, contentType)
+      ),
+      'PUT',
+      body
     )
+
+    callback(response)
+    return response
   }
 
   /**
@@ -75,38 +80,43 @@ export class Executor extends ExecutorRequesterInterface {
    * @param {ExecutorRequesterInterface~executionClb} callback
    * @param {?string} contentType
    * @param {?string} body
+   * @return {ResponseDelegate}
    */
   patch(xmlhttpRequestDelegate, callback, contentType = null, body = null) {
-    callback(
-      this.exec(
-        this._checkRequestType(
-          this._ensureContentType(xmlhttpRequestDelegate, contentType)
-        ),
-        'PATCH',
-        body
-      )
+    const response = this.exec(
+      this._checkRequestType(
+        this._ensureContentType(xmlhttpRequestDelegate, contentType)
+      ),
+      'PATCH',
+      body
     )
+    callback(response)
+    return response
   }
 
   /**
    * @param {XmlHttpRequestDelegate} xmlhttpRequestDelegate
    * @param {ExecutorRequesterInterface~executionClb} callback
+   * @return {ResponseDelegate}
    */
   delete(xmlhttpRequestDelegate, callback) {
-    callback(this.exec(xmlhttpRequestDelegate, 'DELETE'))
+    const response = this.exec(xmlhttpRequestDelegate, 'DELETE')
+    callback(response)
+    return response
   }
 
   /**
    * @param {XmlHttpRequestDelegate} xmlhttpRequestDelegate
    * @param {ExecutorRequesterInterface~executionClb} callback
+   * @return {ResponseDelegate}
    */
   head(xmlhttpRequestDelegate, callback) {
-    callback(
-      this.exec(
-        this._checkRequestType(xmlhttpRequestDelegate),
-        'HEAD'
-      )
+    const response = this.exec(
+      this._checkRequestType(xmlhttpRequestDelegate),
+      'HEAD'
     )
+    callback(response)
+    return response
   }
 
   /**
