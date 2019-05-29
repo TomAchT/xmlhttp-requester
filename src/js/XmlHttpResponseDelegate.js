@@ -2,8 +2,9 @@
 global Headers
 */
 
-import {assertType, isNull, isNumber, isString, deepFreezeSeal, StringArray} from 'flexio-jshelpers'
-import {StringArrayMap, StringArrayMapBuilder} from './StringArrayMap'
+import {assertType, isNull, isNumber, isString} from '@flexio-oss/assert'
+import {deepFreezeSeal} from '@flexio-oss/js-type-helpers'
+import {StringArrayMap, StringArrayMapBuilder, StringArray} from '@flexio-oss/extended-flex-types'
 
 /**
  * @implements {ResponseDelegate}

@@ -1,14 +1,18 @@
 {
-  "name": "xmlhttp-requester",
-  "version": "0.0.0-dev",
-  "description": "Generic synchronous Http requester for flexio service clients",
+  "name": "@flexio-oss/xmlhttp-requester",
+  "version": "0.0.0",
+  "description": "Generic synchronous/asynchronous Http requester for flexio service clients",
   "main": "index.js",
   "module": "index.js",
   "repository": "https://github.com/flexiooss/xmlhttp-requester.git",
   "author": "Thomas Chatelain (https://github.com/TomAchT)",
   "license": "Apache-2.0",
   "dependencies": {
-    "flexio-jshelpers": "https://github.com/flexiooss/flexio-jshelpers.git"
+    "@flexio-oss/js-type-helpers": "0.0.0",
+    "@flexio-oss/assert": "0.0.0",
+    "@flexio-oss/extended-flex-types": "0.0.0",
+    "@flexio-oss/global-import-registry": "0.0.0",
+    "@flexio-oss/js-helpers": "0.0.0"
   },
   "devDependencies": {
     "eslint": "^5.13.0",
@@ -29,6 +33,11 @@
     "test": {
       "tester": "code-altimeter-js",
       "path": "src/test"
+    },
+    "generate-sources": {
+      "value-objects": {
+        "extension": ".spec"
+      }
     }
   }
 }
