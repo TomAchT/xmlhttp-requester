@@ -1,6 +1,6 @@
 {
   "name": "@flexio-oss/xmlhttp-requester",
-  "version": "0.0.0-dev",
+  "version": "0.0.0",
   "description": "Generic synchronous/asynchronous Http requester for flexio service clients",
   "main": "index.js",
   "module": "index.js",
