@@ -173,7 +173,9 @@ export class XmlHttpRequester {
    */
   path(path) {
     assertType(isString(path) || isNull(path), 'XmlHttpRequester:path: path should be string or null')
-    this._xmlhttpRequestDelegateBuilder = new globalFlexioImport.io.flexio.extended_flex_types.URLExtended(path)
+    this._xmlhttpRequestDelegateBuilder.path(
+      new globalFlexioImport.io.flexio.extended_flex_types.URLExtended(path)
+    )
     return this
   }
 
