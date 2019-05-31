@@ -32,7 +32,11 @@ export class ExecutorWorker extends Executor {
   _listenWorker(worker, callback) {
     worker.addEventListener('message', (event) => {
       worker.terminate()
-      callback(XmlHttpResponseDelegateBuilder.fromObject(event).build())
+      callback(
+        XmlHttpResponseDelegateBuilder
+          .fromObject(event.data)
+          .build()
+      )
     })
   }
 
@@ -153,5 +157,4 @@ export class ExecutorWorker extends Executor {
       callback
     )
   }
-
 }

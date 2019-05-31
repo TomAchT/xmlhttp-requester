@@ -18,24 +18,48 @@ self.onmessage = (e) => {
 
   switch (requestMessageWorker.method()) {
     case 'GET':
-      self.postMessage(requester.get(null))
+      self.postMessage(
+        requester
+          .get(null)
+          .toObject()
+      )
       break
     case 'POST':
-      self.postMessage(requester.post(null, requestMessageWorker.contentType(), requestMessageWorker.body()))
+      self.postMessage(
+        requester
+          .post(null, requestMessageWorker.contentType(), requestMessageWorker.body())
+          .toObject()
+      )
       break
     case 'PATCH':
-      self.postMessage(requester.patch(null, requestMessageWorker.contentType(), requestMessageWorker.body()))
+      self.postMessage(
+        requester
+          .patch(null, requestMessageWorker.contentType(), requestMessageWorker.body())
+          .toObject()
+      )
       break
     case 'PUT':
-      self.postMessage(requester.patch(null, requestMessageWorker.contentType(), requestMessageWorker.body()))
+      self.postMessage(
+        requester
+          .patch(null, requestMessageWorker.contentType(), requestMessageWorker.body())
+          .toObject()
+      )
       break
     case 'DELETE':
-      self.postMessage(requester.delete(null))
+      self.postMessage(
+        requester
+          .delete(null)
+          .toObject()
+      )
       break
     case 'HEAD':
-      self.postMessage(requester.head(null))
+      self.postMessage(
+        requester
+          .head(null)
+          .toObject()
+      )
       break
     default:
-      self.postMessage(globalFlexioImport.io.flexio.xmlhttp_requester.types.XmlHttpRequestDelegateBuilder.build())
+      self.postMessage(globalFlexioImport.io.flexio.xmlhttp_requester.types.XmlHttpRequestDelegateBuilder.build().toObject())
   }
 }
