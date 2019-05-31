@@ -1,7 +1,6 @@
 import {assertType, isString, isNull} from '@flexio-oss/assert'
 import {globalFlexioImport} from '@flexio-oss/global-import-registry'
 import {HttpRequester} from '@flexio-oss/js-helpers'
-import {StringArrayMap} from '@flexio-oss/extended-flex-types'
 import {ExecutorRequesterInterface} from './Executor/ExecutorRequesterInterface'
 import {XmlHttpRequestDelegate} from './types/XmlHttpRequestDelegate'
 
@@ -196,7 +195,12 @@ export class XmlHttpRequester {
   _ensureHaveRequestDelegate() {
     if (isNull(this._requestDelegate)) {
       this._requestDelegate = this._xmlhttpRequestDelegateBuilder.build()
+      this._initBuilder()
     }
+  }
+
+  _initBuilder() {
+    this._xmlhttpRequestDelegateBuilder = globalFlexioImport.io.flexio.xmlhttp_requester.types.XmlHttpRequestDelegateBuilder.initEmpty()
   }
 }
 
