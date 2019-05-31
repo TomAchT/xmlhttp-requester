@@ -71,3 +71,5 @@ deepKeyAssigner(globalFlexioImport, 'io.flexio.xmlhttp_requester.types.RequestMe
  * @property {RequestMessageWorkerBuilder}  RequestMessageWorkerBuilder
  */
 deepKeyAssigner(globalFlexioImport, 'io.flexio.xmlhttp_requester.types.RequestMessageWorkerBuilder', RequestMessageWorkerBuilder)
+
+console.log(globalFlexioImport)

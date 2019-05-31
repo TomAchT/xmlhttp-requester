@@ -104,6 +104,8 @@ class XmlHttpRequestDelegateBuilder {
    * @return {XmlHttpRequestDelegateBuilder}
    */
   static initEmpty() {
+    console.log(globalFlexioImport)
+
     return new XmlHttpRequestDelegateBuilder()
       .headers(new globalFlexioImport.io.flexio.extended_flex_types.StringArrayMap())
       .parameters(new globalFlexioImport.io.flexio.extended_flex_types.URLSearchParamsExtended())

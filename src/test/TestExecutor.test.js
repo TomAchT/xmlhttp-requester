@@ -1,5 +1,6 @@
 /* global runTest */
 import {TestCase} from 'code-altimeter-js'
+import '../../import'
 import {StringArrayMapBuilder, StringArray, URLExtended} from '@flexio-oss/extended-flex-types'
 import {XmlHttpResponseDelegateBuilder} from '../js/XmlHttpResponseDelegate'
 import {Executor} from '../js/Executor/Executor'
@@ -27,6 +28,7 @@ export class TestExecutor extends TestCase {
   }
 
   testGet() {
+    // TODO extract build server
     // const httpServer = new HttpServerExtended(this.responseDelegateInst).listen(8080)
     //
     // const executor = new Executor()
