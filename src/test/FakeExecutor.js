@@ -13,8 +13,8 @@ export class FakeExecutor extends ExecutorRequesterInterface {
    * @return {ResponseDelegate}
    */
   get(xmlhttpRequestDelegate, callback) {
-    callback(this.expectedResponse())
-    return this.expectedResponse()
+    callback(FakeExecutor.expectedResponse())
+    return FakeExecutor.expectedResponse()
   }
 
   /**
@@ -25,8 +25,8 @@ export class FakeExecutor extends ExecutorRequesterInterface {
    * @return {ResponseDelegate}
    */
   post(xmlhttpRequestDelegate, callback, contentType = null, body = null) {
-    callback(this.expectedResponse())
-    return this.expectedResponse()
+    callback(FakeExecutor.expectedResponse())
+    return FakeExecutor.expectedResponse()
   }
 
   /**
@@ -37,8 +37,8 @@ export class FakeExecutor extends ExecutorRequesterInterface {
    * @return {ResponseDelegate}
    */
   put(xmlhttpRequestDelegate, callback, contentType = null, body = null) {
-    callback(this.expectedResponse())
-    return this.expectedResponse()
+    callback(FakeExecutor.expectedResponse())
+    return FakeExecutor.expectedResponse()
   }
 
   /**
@@ -49,8 +49,8 @@ export class FakeExecutor extends ExecutorRequesterInterface {
    * @return {ResponseDelegate}
    */
   patch(xmlhttpRequestDelegate, callback, contentType = null, body = null) {
-    callback(this.expectedResponse())
-    return this.expectedResponse()
+    callback(FakeExecutor.expectedResponse())
+    return FakeExecutor.expectedResponse()
   }
 
   /**
@@ -59,8 +59,8 @@ export class FakeExecutor extends ExecutorRequesterInterface {
    * @return {ResponseDelegate}
    */
   delete(xmlhttpRequestDelegate, callback) {
-    callback(this.expectedResponse())
-    return this.expectedResponse()
+    callback(FakeExecutor.expectedResponse())
+    return FakeExecutor.expectedResponse()
   }
 
   /**
@@ -69,15 +69,14 @@ export class FakeExecutor extends ExecutorRequesterInterface {
    * @return {ResponseDelegate}
    */
   head(xmlhttpRequestDelegate, callback) {
-    callback(this.expectedResponse())
-    return this.expectedResponse()
+    callback(FakeExecutor.expectedResponse())
+    return FakeExecutor.expectedResponse()
   }
 
   /**
    * @return {XmlHttpResponseDelegate}
-   * @protected
    */
-  expectedResponse() {
+  static expectedResponse() {
     return new XmlHttpResponseDelegateBuilder()
       .code(200)
       .payload(JSON.stringify({toto: 'toto', tutu: [1, 4, 6]}))

@@ -122,6 +122,78 @@ export class TestXmlHttpRequester extends TestCase {
     assert.deepEqual(requester.requestDelegate().path(), new URLExtended('https://flexio.io/test'), 'should retrieve path')
     assert.deepEqual(requester.requestDelegate().headers(), this.__headers(), 'should retrieve headers')
   }
+
+  testMethodGET() {
+    assert.deepEqual(FakeExecutor.expectedResponse(), this.requester.get(() => {
+    }))
+
+    assert.throws(
+      () => {
+        this.requester.get((resp) => {
+          assert.notDeepStrictEqual(resp, FakeExecutor.expectedResponse())
+        })
+      })
+  }
+
+  testMethodPOST() {
+    assert.deepEqual(FakeExecutor.expectedResponse(), this.requester.post(() => {
+    }))
+
+    assert.throws(
+      () => {
+        this.requester.post((resp) => {
+          assert.notDeepStrictEqual(resp, FakeExecutor.expectedResponse())
+        })
+      })
+  }
+
+  testMethodPATCH() {
+    assert.deepEqual(FakeExecutor.expectedResponse(), this.requester.patch(() => {
+    }))
+
+    assert.throws(
+      () => {
+        this.requester.patch((resp) => {
+          assert.notDeepStrictEqual(resp, FakeExecutor.expectedResponse())
+        })
+      })
+  }
+
+  testMethodPUT() {
+    assert.deepEqual(FakeExecutor.expectedResponse(), this.requester.put(() => {
+    }))
+
+    assert.throws(
+      () => {
+        this.requester.put((resp) => {
+          assert.notDeepStrictEqual(resp, FakeExecutor.expectedResponse())
+        })
+      })
+  }
+
+  testMethodDELETE() {
+    assert.deepEqual(FakeExecutor.expectedResponse(), this.requester.delete(() => {
+    }))
+
+    assert.throws(
+      () => {
+        this.requester.delete((resp) => {
+          assert.notDeepStrictEqual(resp, FakeExecutor.expectedResponse())
+        })
+      })
+  }
+
+  testMethodHEAD() {
+    assert.deepEqual(FakeExecutor.expectedResponse(), this.requester.head(() => {
+    }))
+
+    assert.throws(
+      () => {
+        this.requester.head((resp) => {
+          assert.notDeepStrictEqual(resp, FakeExecutor.expectedResponse())
+        })
+      })
+  }
 }
 
 runTest(TestXmlHttpRequester)
