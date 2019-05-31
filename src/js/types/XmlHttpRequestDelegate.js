@@ -186,7 +186,7 @@ class XmlHttpRequestDelegateBuilder {
   arrayParameter(name, values) {
     assertType(isString(name), 'XmlHttpRequestDelegateBuilder:arrayParameter: name should be string or null')
     this._parameters.delete(name)
-    for (const v in new StringArray(...values)) {
+    for (const v of new StringArray(...values)) {
       this._parameters.append(name, v)
     }
     return this
