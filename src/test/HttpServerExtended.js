@@ -1,5 +1,3 @@
-'use strict'
-
 import {isNull, assertType} from '@flexio-oss/assert'
 import {XmlHttpResponseDelegate} from '../js/XmlHttpResponseDelegate'
 
