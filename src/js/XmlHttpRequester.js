@@ -48,8 +48,7 @@ export class XmlHttpRequester {
    * @return {XmlHttpRequestDelegate}
    */
   requestDelegate() {
-    this._ensureHaveRequestDelegate()
-    return this._requestDelegate
+    return this._xmlhttpRequestDelegateBuilder.build()
   }
 
   /**
