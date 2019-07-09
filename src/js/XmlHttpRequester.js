@@ -1,8 +1,7 @@
 import {assertType, isString, isNull} from '@flexio-oss/assert'
 import {globalFlexioImport} from '@flexio-oss/global-import-registry'
-import {HttpRequester} from '@flexio-oss/js-helpers'
 import {ExecutorRequesterInterface} from './Executor/ExecutorRequesterInterface'
-import {XmlHttpRequestDelegate} from './types/XmlHttpRequestDelegate'
+import {XmlHttpRequestDelegate, XmlHttpRequestDelegateBuilder} from './types/XmlHttpRequestDelegate'
 
 /**
  * @implements {HttpRequester}
@@ -29,18 +28,13 @@ export class XmlHttpRequester {
      * @protected
      */
     this._executor = executor
-    /**
-     * @type {?XmlHttpRequestDelegate}
-     * @protected
-     */
-    this._requestDelegate = xmlhttpRequestDelegate
 
     /**
      *
      * @type {XmlHttpRequestDelegateBuilder}
      * @protected
      */
-    this._xmlhttpRequestDelegateBuilder = globalFlexioImport.io.flexio.xmlhttp_requester.types.XmlHttpRequestDelegateBuilder.initEmpty()
+    this._xmlhttpRequestDelegateBuilder = (!isNull(xmlhttpRequestDelegate)) ? XmlHttpRequestDelegateBuilder.from(xmlhttpRequestDelegate) : globalFlexioImport.io.flexio.xmlhttp_requester.types.XmlHttpRequestDelegateBuilder.initEmpty()
   }
 
   /**
@@ -48,8 +42,7 @@ export class XmlHttpRequester {
    * @return {XmlHttpRequestDelegate}
    */
   requestDelegate() {
-    this._ensureHaveRequestDelegate()
-    return this._requestDelegate
+    return this._xmlhttpRequestDelegateBuilder.build()
   }
 
   /**
@@ -190,17 +183,6 @@ export class XmlHttpRequester {
    */
   toJSON() {
     return this.toObject()
-  }
-
-  _ensureHaveRequestDelegate() {
-    if (isNull(this._requestDelegate)) {
-      this._requestDelegate = this._xmlhttpRequestDelegateBuilder.build()
-      this._initBuilder()
-    }
-  }
-
-  _initBuilder() {
-    this._xmlhttpRequestDelegateBuilder = globalFlexioImport.io.flexio.xmlhttp_requester.types.XmlHttpRequestDelegateBuilder.initEmpty()
   }
 }
 
