@@ -165,8 +165,16 @@ export class XmlHttpRequester {
    */
   path(path) {
     assertType(isString(path) || isNull(path), 'XmlHttpRequester:path: path should be string or null')
+    let index = path.indexOf('://')
+    let baseUrl = path.slice(0, index + 3)
+    let cleaningPath = path.slice(index + 3)
+    cleaningPath = cleaningPath.replace(/\/\//g, '/')
+    let url = baseUrl.concat(cleaningPath)
+    if (url.endsWith('/')) {
+      url = url.slice(0, -1)
+    }
     this._xmlhttpRequestDelegateBuilder.path(
-      new globalFlexioImport.io.flexio.extended_flex_types.URLExtended(path)
+      new globalFlexioImport.io.flexio.extended_flex_types.URLExtended(url)
     )
     return this
   }
