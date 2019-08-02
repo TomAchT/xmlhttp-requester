@@ -207,7 +207,7 @@ export class Executor extends ExecutorRequesterInterface {
    */
   _buildPath(xmlhttpRequestDelegate) {
     if (xmlhttpRequestDelegate.parameters().toString().length) {
-      return new globalFlexioImport.io.flexio.xmlhttp_requester.types.URLExtendedBuilder()
+      return new globalFlexioImport.io.flexio.extended_flex_types.URLExtendedBuilder()
         .href(xmlhttpRequestDelegate.path().href + '?' + xmlhttpRequestDelegate.parameters().toString())
         .build()
         .toString()
