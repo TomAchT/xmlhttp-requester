@@ -10,13 +10,13 @@ export class HttpServerExtended {
    */
   constructor(responseDelegate) {
     assertType(responseDelegate instanceof XmlHttpResponseDelegate,
-      'HttpServerExtended:constructor: `responseDelegate` shouldbe an instanceof XmlHttpResponseDelegate')
+      'HttpServerExtended:constructor: `responseDelegate` should be an instanceof XmlHttpResponseDelegate')
     this._responseDelegate = responseDelegate
   }
 
   /**
    *
-   * @param {ServerResponse} response
+   * @param {HttpServerExtended} response
    * @return {this}
    * @protected
    */
@@ -29,7 +29,7 @@ export class HttpServerExtended {
 
   /**
    *
-   * @param {ServerResponse} response
+   * @param {HttpServerExtended} response
    * @return {this}
    * @protected
    */
@@ -54,7 +54,6 @@ export class HttpServerExtended {
   }
 
   listen(port) {
-    // console.log(http)
     console.log(http.createServer)
 
     http.createServer(

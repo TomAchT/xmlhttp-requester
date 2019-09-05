@@ -75,6 +75,17 @@ export class TestXmlHttpRequester extends TestCase {
     return headers
   }
 
+  testRequesterPath() {
+    this.requester.path('https://flexio.io//test/')
+    assert.deepEqual(this.requester._xmlhttpRequestDelegateBuilder._path.href, 'https://flexio.io/test')
+
+    this.requester.path('https://flexio.io//test//')
+    assert.deepEqual(this.requester._xmlhttpRequestDelegateBuilder._path.href, 'https://flexio.io/test')
+
+    this.requester.path('https://flexio.io//test://')
+    assert.deepEqual(this.requester._xmlhttpRequestDelegateBuilder._path.href, 'https://flexio.io/test:')
+  }
+
   testSerializeDeserialize() {
     assert(JSON.stringify(this.requester) === JSON.stringify(this.__requestDelegate()), 'fromJson equals')
 
@@ -117,7 +128,6 @@ export class TestXmlHttpRequester extends TestCase {
 
   testRetrievePropertiesAfterSrialisation() {
     const requester = XmlHttpRequesterBuilder.fromJson(JSON.stringify(this.requester)).executor(new FakeExecutor()).build()
-
     assert.deepEqual(requester.requestDelegate().parameters(), this.__parameters(), 'should retrieve parameters')
     assert.deepEqual(requester.requestDelegate().path(), new URLExtended('https://flexio.io/test'), 'should retrieve path')
     assert.deepEqual(requester.requestDelegate().headers(), this.__headers(), 'should retrieve headers')
