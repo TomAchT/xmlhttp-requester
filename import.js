@@ -13,17 +13,17 @@ import {XmlHttpRequester, XmlHttpRequesterBuilder} from './src/js/XmlHttpRequest
 import {RequestMessageWorker, RequestMessageWorkerBuilder} from './src/js/types/RequestMessageWorker'
 
 /**
- * @property {StringArrayMap} StringArrayMap
+ * @property {StringArrayMap} globalFlexioImport.io.flexio.extended_flex_types.StringArrayMap
  */
 deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.StringArrayMap', StringArrayMap)
 
 /**
- * @property {StringArrayMapBuilder}  StringArrayMapBuilder
+ * @property {StringArrayMapBuilder}  globalFlexioImport.io.flexio.extended_flex_types.StringArrayMapBuilder
  */
 deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.StringArrayMapBuilder', StringArrayMapBuilder)
 
 /**
- * @property {URLExtended} URLExtended
+ * @property {URLExtended} globalFlexioImport.io.flexio.extended_flex_types.URLExtended
  */
 deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.URLExtended', URLExtended)
 
@@ -33,41 +33,41 @@ deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.URLExtended',
 deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.URLExtendedBuilder', URLExtendedBuilder)
 
 /**
- * @property {URLSearchParamsExtended} URLSearchParamsExtended
+ * @property {URLSearchParamsExtended} globalFlexioImport.io.flexio.extended_flex_types.URLSearchParamsExtended
  */
 deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.URLSearchParamsExtended', URLSearchParamsExtended)
 
 /**
- * @property {URLSearchParamsExtendedBuilder}  URLSearchParamsExtendedBuilder
+ * @property {URLSearchParamsExtendedBuilder}  globalFlexioImport.io.flexio.extended_flex_types.URLSearchParamsExtendedBuilder
  */
 deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.URLSearchParamsExtendedBuilder', URLSearchParamsExtendedBuilder)
 
 /**
- * @property {XmlHttpRequestDelegate} XmlHttpRequestDelegate
+ * @property {XmlHttpRequestDelegate} globalFlexioImport.io.flexio.xmlhttp_requester.types.XmlHttpRequestDelegate
  */
 deepKeyAssigner(globalFlexioImport, 'io.flexio.xmlhttp_requester.types.XmlHttpRequestDelegate', XmlHttpRequestDelegate)
 
 /**
- * @property {XmlHttpRequestDelegateBuilder}  XmlHttpRequestDelegateBuilder
+ * @property {XmlHttpRequestDelegateBuilder}  globalFlexioImport.io.flexio.xmlhttp_requester.types.XmlHttpRequestDelegateBuilder
  */
 deepKeyAssigner(globalFlexioImport, 'io.flexio.xmlhttp_requester.types.XmlHttpRequestDelegateBuilder', XmlHttpRequestDelegateBuilder)
 
 /**
- * @property {XmlHttpRequester} XmlHttpRequester
+ * @property {XmlHttpRequester} globalFlexioImport.io.flexio.xmlhttp_requester.types.XmlHttpRequester
  */
 deepKeyAssigner(globalFlexioImport, 'io.flexio.xmlhttp_requester.types.XmlHttpRequester', XmlHttpRequester)
 
 /**
- * @property {XmlHttpRequesterBuilder}  XmlHttpRequesterBuilder
+ * @property {XmlHttpRequesterBuilder}  globalFlexioImport.io.flexio.xmlhttp_requester.types.XmlHttpRequesterBuilder
  */
 deepKeyAssigner(globalFlexioImport, 'io.flexio.xmlhttp_requester.types.XmlHttpRequesterBuilder', XmlHttpRequesterBuilder)
 
 /**
- * @property {RequestMessageWorker} RequestMessageWorker
+ * @property {RequestMessageWorker} globalFlexioImport.io.flexio.xmlhttp_requester.types.RequestMessageWorker.RequestMessageWorker
  */
 deepKeyAssigner(globalFlexioImport, 'io.flexio.xmlhttp_requester.types.RequestMessageWorker', RequestMessageWorker)
 
 /**
- * @property {RequestMessageWorkerBuilder}  RequestMessageWorkerBuilder
+ * @property {RequestMessageWorkerBuilder}  globalFlexioImport.io.flexio.xmlhttp_requester.types.RequestMessageWorkerBuilder
  */
 deepKeyAssigner(globalFlexioImport, 'io.flexio.xmlhttp_requester.types.RequestMessageWorkerBuilder', RequestMessageWorkerBuilder)
