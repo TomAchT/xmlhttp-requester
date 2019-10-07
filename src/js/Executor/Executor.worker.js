@@ -41,7 +41,7 @@ self.onmessage = (e) => {
     case 'PUT':
       self.postMessage(
         requester
-          .patch(null, requestMessageWorker.contentType(), requestMessageWorker.body())
+          .put(null, requestMessageWorker.contentType(), requestMessageWorker.body())
           .toObject()
       )
       break
