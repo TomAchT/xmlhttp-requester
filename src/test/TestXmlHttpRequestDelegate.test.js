@@ -55,18 +55,18 @@ export class TestXmlHttpRequestDelegate extends TestCase {
   }
 
   testSerializeDeserialize() {
-    assert.deepEqual(this.requestDelegate, XmlHttpRequestDelegateBuilder.fromJson(JSON.stringify(this.requestDelegate)).build())
+    assert.deepEqual(this.requestDelegate.toJSON(), XmlHttpRequestDelegateBuilder.fromJson(JSON.stringify(this.requestDelegate)).build().toJSON())
   }
 
   testToObjectFromObject() {
-    assert.deepEqual(this.requestDelegate, XmlHttpRequestDelegateBuilder.fromObject(this.requestDelegate.toObject()).build())
+    assert.deepEqual(this.requestDelegate.toJSON(), XmlHttpRequestDelegateBuilder.fromObject(this.requestDelegate.toObject()).build().toJSON())
   }
 
   testRetrieveProperties() {
 
     assert.deepEqual(this.requestDelegate.parameters(), this.__parameters(), 'should retrieve parameters')
     assert.deepEqual(this.requestDelegate.path(), new URLExtended('https://flexio.io/test'), 'should retrieve path')
-    assert.deepEqual(this.requestDelegate.headers(), this.__headers(), 'should retrieve headers')
+    assert.deepEqual(this.requestDelegate.headers().entries(), this.__headers().entries(), 'should retrieve headers')
 
   }
 
@@ -76,7 +76,7 @@ export class TestXmlHttpRequestDelegate extends TestCase {
 
     assert.deepEqual(requestDelegate.parameters(), this.__parameters(), 'should retrieve parameters')
     assert.deepEqual(requestDelegate.path(), new URLExtended('https://flexio.io/test'), 'should retrieve path')
-    assert.deepEqual(requestDelegate.headers(), this.__headers(), 'should retrieve headers')
+    assert.deepEqual(requestDelegate.headers().entries(), this.__headers().entries(), 'should retrieve headers')
 
   }
 }

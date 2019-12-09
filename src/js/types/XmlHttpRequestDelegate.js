@@ -139,7 +139,7 @@ class XmlHttpRequestDelegateBuilder {
    */
   arrayHeader(name, values) {
     assertType(isString(name), 'XmlHttpRequestDelegateBuilder:arrayHeader: name should be string or null')
-    this._headers.set(name, new StringArray(...values))
+    this._headers.with(name, new StringArray(...values))
     return this
   }
 

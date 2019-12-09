@@ -96,7 +96,7 @@ export class TestXmlHttpRequester extends TestCase {
       TypeError
     )
 
-    assert.deepEqual(this.requester, XmlHttpRequesterBuilder.fromJson(JSON.stringify(this.requester)).executor(new FakeExecutor()).build(), 'JSON rebuild')
+    assert.deepEqual(this.requester.toJSON(), XmlHttpRequesterBuilder.fromJson(JSON.stringify(this.requester)).executor(new FakeExecutor()).build().toJSON(), 'JSON rebuild')
   }
 
   testToObjectFromObject() {
@@ -107,100 +107,94 @@ export class TestXmlHttpRequester extends TestCase {
       TypeError
     )
 
-    assert.deepEqual(this.requester, XmlHttpRequesterBuilder.fromObject(this.requester.toObject()).executor(new FakeExecutor()).build(), 'fromObject rebuild')
+    assert.deepEqual(this.requester.toJSON(), XmlHttpRequesterBuilder.fromObject(this.requester.toObject()).executor(new FakeExecutor()).build().toJSON(), 'fromObject rebuild')
   }
 
   testFromRequestDelegate() {
-    assert.deepEqual(
-      this.requester.requestDelegate(),
-      new XmlHttpRequester(
-        new FakeExecutor(),
-        this.__requestDelegate()
-      ).requestDelegate()
-    )
+    assert.deepEqual(this.requester.requestDelegate().toJSON(), new XmlHttpRequester(new FakeExecutor(), this.__requestDelegate()).requestDelegate().toJSON())
   }
 
   testRetrieveProperties() {
     assert.deepEqual(this.requester.requestDelegate().parameters(), this.__parameters(), 'should retrieve parameters')
     assert.deepEqual(this.requester.requestDelegate().path(), new URLExtended('https://flexio.io/test'), 'should retrieve path')
-    assert.deepEqual(this.requester.requestDelegate().headers(), this.__headers(), 'should retrieve headers')
+    assert.deepEqual(this.requester.requestDelegate().headers().entries(), this.__headers().entries(), 'should retrieve headers')
   }
 
-  testRetrievePropertiesAfterSrialisation() {
+  testRetrievePropertiesAfterSerialisation() {
     const requester = XmlHttpRequesterBuilder.fromJson(JSON.stringify(this.requester)).executor(new FakeExecutor()).build()
     assert.deepEqual(requester.requestDelegate().parameters(), this.__parameters(), 'should retrieve parameters')
     assert.deepEqual(requester.requestDelegate().path(), new URLExtended('https://flexio.io/test'), 'should retrieve path')
-    assert.deepEqual(requester.requestDelegate().headers(), this.__headers(), 'should retrieve headers')
+    assert.deepEqual(requester.requestDelegate().headers().entries(), this.__headers().entries(), 'should retrieve headers')
   }
 
   testMethodGET() {
-    assert.deepEqual(FakeExecutor.expectedResponse(), this.requester.get(() => {
-    }))
+    assert.deepEqual(FakeExecutor.expectedResponse().toJSON(), this.requester.get(() => {
+    }).toJSON())
 
     assert.throws(
       () => {
         this.requester.get((resp) => {
-          assert.notDeepStrictEqual(resp, FakeExecutor.expectedResponse())
+          assert.notDeepStrictEqual(resp.toJSON(), FakeExecutor.expectedResponse().toJSON())
         })
       })
   }
 
   testMethodPOST() {
-    assert.deepEqual(FakeExecutor.expectedResponse(), this.requester.post(() => {
-    }))
+    assert.deepEqual(FakeExecutor.expectedResponse().toJSON(), this.requester.post(() => {
+    }).toJSON())
 
     assert.throws(
       () => {
         this.requester.post((resp) => {
-          assert.notDeepStrictEqual(resp, FakeExecutor.expectedResponse())
+          assert.notDeepStrictEqual(resp.toJSON(), FakeExecutor.expectedResponse().toJSON())
         })
       })
   }
 
   testMethodPATCH() {
-    assert.deepEqual(FakeExecutor.expectedResponse(), this.requester.patch(() => {
-    }))
+    assert.deepEqual(FakeExecutor.expectedResponse().toJSON(), this.requester.patch(() => {
+    }).toJSON())
 
     assert.throws(
       () => {
         this.requester.patch((resp) => {
-          assert.notDeepStrictEqual(resp, FakeExecutor.expectedResponse())
+          assert.notDeepStrictEqual(resp.toJSON(), FakeExecutor.expectedResponse().toJSON())
         })
       })
   }
 
   testMethodPUT() {
-    assert.deepEqual(FakeExecutor.expectedResponse(), this.requester.put(() => {
-    }))
+    assert.deepEqual(FakeExecutor.expectedResponse().toJSON(), this.requester.put(() => {
+    }).toJSON())
 
     assert.throws(
       () => {
         this.requester.put((resp) => {
-          assert.notDeepStrictEqual(resp, FakeExecutor.expectedResponse())
+          assert.notDeepStrictEqual(resp.toJSON(), FakeExecutor.expectedResponse().toJSON())
         })
       })
   }
 
   testMethodDELETE() {
-    assert.deepEqual(FakeExecutor.expectedResponse(), this.requester.delete(() => {
-    }))
+    assert.deepEqual(FakeExecutor.expectedResponse().toJSON(), this.requester.delete(() => {
+    }).toJSON())
 
     assert.throws(
       () => {
         this.requester.delete((resp) => {
-          assert.notDeepStrictEqual(resp, FakeExecutor.expectedResponse())
+          assert.notDeepStrictEqual(resp.toJSON(), FakeExecutor.expectedResponse().toJSON())
         })
       })
   }
 
   testMethodHEAD() {
-    assert.deepEqual(FakeExecutor.expectedResponse(), this.requester.head(() => {
-    }))
+    assert.deepEqual(FakeExecutor.expectedResponse().toJSON(), this.requester.head(() => {
+    }).toJSON())
 
     assert.throws(
       () => {
         this.requester.head((resp) => {
-          assert.notDeepStrictEqual(resp, FakeExecutor.expectedResponse())
+          assert.notDeepStrictEqual(resp.toJSON(), FakeExecutor.expectedResponse().toJSON())
         })
       })
   }

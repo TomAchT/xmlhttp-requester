@@ -24,11 +24,11 @@ export class TestXmlHttpResponseDelegate extends TestCase {
   }
 
   testSerializeDeserialize() {
-    assert.deepEqual(this.responseDelegateInst, XmlHttpResponseDelegateBuilder.fromJson(JSON.stringify(this.responseDelegateInst)).build())
+    assert.deepEqual(this.responseDelegateInst.toJSON(), XmlHttpResponseDelegateBuilder.fromJson(JSON.stringify(this.responseDelegateInst)).build().toJSON())
   }
 
   testToObjectFromObject() {
-    assert.deepEqual(this.responseDelegateInst, XmlHttpResponseDelegateBuilder.fromObject(this.responseDelegateInst.toObject()).build())
+    assert.deepEqual(this.responseDelegateInst.toJSON(), XmlHttpResponseDelegateBuilder.fromObject(this.responseDelegateInst.toObject()).build().toJSON())
   }
 
   testRetrieveHeader() {
