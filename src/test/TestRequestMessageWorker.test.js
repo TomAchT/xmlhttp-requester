@@ -42,18 +42,15 @@ export class TestRequestMessageWorker extends TestCase {
     assert.deepEqual(this.requestDelegate.toJSON(), this.requestMessageWorker.requestDelegate().toJSON())
     assert(this.requestMessageWorker.body() === JSON.stringify({toto: 'toto', tutu: [1, 4, 6]}))
     assert(this.requestMessageWorker.contentType() === 'application/json')
-
   }
 
-  testRetrievePropertiesAfterSrialisation() {
-
+  testRetrievePropertiesAfterSerialisation() {
     const requestMessageWorker = RequestMessageWorkerBuilder.fromJson(JSON.stringify(this.requestMessageWorker)).build()
 
     assert(requestMessageWorker.method() === 'POST')
     assert.deepEqual(requestMessageWorker.requestDelegate().toJSON(), this.requestMessageWorker.requestDelegate().toJSON())
     assert(requestMessageWorker.body() === JSON.stringify({toto: 'toto', tutu: [1, 4, 6]}))
     assert(requestMessageWorker.contentType() === 'application/json')
-
   }
 }
 

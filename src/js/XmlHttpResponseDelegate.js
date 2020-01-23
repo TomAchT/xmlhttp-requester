@@ -5,6 +5,7 @@ global Headers
 import {assertType, isNull, isNumber, isString} from '@flexio-oss/assert'
 import {deepFreezeSeal} from '@flexio-oss/js-type-helpers'
 import {ResponseDelegate} from '@flexio-oss/js-helpers'
+import {StringArrayMap, StringArrayMapBuilder} from '@flexio-oss/extended-flex-types'
 
 /**
  * @implements {ResponseDelegate}

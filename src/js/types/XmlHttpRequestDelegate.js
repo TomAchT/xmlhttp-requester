@@ -1,4 +1,4 @@
-import {assertType, isString, isNull} from '@flexio-oss/assert'
+import {assertType, isNull, isString} from '@flexio-oss/assert'
 import {StringArray} from '@flexio-oss/flex-types'
 import {globalFlexioImport} from '@flexio-oss/global-import-registry'
 import {deepFreezeSeal} from '@flexio-oss/js-type-helpers'
