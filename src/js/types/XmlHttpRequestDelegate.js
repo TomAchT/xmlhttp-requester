@@ -1,5 +1,5 @@
 import {assertType, isString, isNull} from '@flexio-oss/assert'
-import {StringArray} from '@flexio-oss/extended-flex-types'
+import {StringArray} from '@flexio-oss/flex-types'
 import {globalFlexioImport} from '@flexio-oss/global-import-registry'
 import {deepFreezeSeal} from '@flexio-oss/js-type-helpers'
 
@@ -42,7 +42,7 @@ class XmlHttpRequestDelegate {
    * @param { StringArrayMap } headers
    */
   withHeaders(headers) {
-    var builder = XmlHttpRequestDelegateBuilder.from(this)
+    let builder = XmlHttpRequestDelegateBuilder.from(this)
     builder.headers(headers)
     return builder.build()
   }
@@ -51,7 +51,7 @@ class XmlHttpRequestDelegate {
    * @param { URLExtended } path
    */
   withPath(path) {
-    var builder = XmlHttpRequestDelegateBuilder.from(this)
+    let builder = XmlHttpRequestDelegateBuilder.from(this)
     builder.path(path)
     return builder.build()
   }
@@ -60,13 +60,13 @@ class XmlHttpRequestDelegate {
    * @param { URLSearchParamsExtended } parameters
    */
   withParameters(parameters) {
-    var builder = XmlHttpRequestDelegateBuilder.from(this)
+    let builder = XmlHttpRequestDelegateBuilder.from(this)
     builder.parameters(parameters)
     return builder.build()
   }
 
   toObject() {
-    var jsonObject = {}
+    let jsonObject = {}
     if (this._headers !== undefined) {
       jsonObject['headers'] = this._headers.toObject()
     }
@@ -204,7 +204,7 @@ class XmlHttpRequestDelegateBuilder {
    * @returns {XmlHttpRequestDelegateBuilder}
    */
   static fromObject(jsonObject) {
-    var builder = new XmlHttpRequestDelegateBuilder()
+    let builder = new XmlHttpRequestDelegateBuilder()
     if (jsonObject['headers'] !== undefined) {
       builder.headers(globalFlexioImport.io.flexio.extended_flex_types.StringArrayMapBuilder.fromObject(jsonObject['headers']).build())
     }

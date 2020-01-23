@@ -1,7 +1,8 @@
 /* global XMLHttpRequest */
 
 import {assertType, isNull, isString} from '@flexio-oss/assert'
-import {StringArray, StringArrayMap} from '@flexio-oss/extended-flex-types'
+import {StringArrayMap} from '@flexio-oss/extended-flex-types'
+import {StringArray} from '@flexio-oss/flex-types'
 import {globalFlexioImport} from '@flexio-oss/global-import-registry'
 import {XmlHttpResponseDelegateBuilder} from '../XmlHttpResponseDelegate'
 import {ExecutorRequesterInterface} from './ExecutorRequesterInterface'

@@ -1,7 +1,8 @@
 /* global XMLHttpRequest */
-import {StringArray, StringArrayMapBuilder} from '@flexio-oss/extended-flex-types'
+import {StringArrayMapBuilder} from '@flexio-oss/extended-flex-types'
 import {XmlHttpResponseDelegateBuilder} from '../js/XmlHttpResponseDelegate'
 import {ExecutorRequesterInterface} from '../js/Executor/ExecutorRequesterInterface'
+import {StringArray} from '@flexio-oss/flex-types'
 
 /**
  * @implements {ExecutorRequesterInterface}

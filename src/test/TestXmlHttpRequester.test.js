@@ -1,11 +1,12 @@
 /* global runTest */
 import {TestCase} from 'code-altimeter-js'
 import '../../import'
-import {StringArray, URLExtended} from '@flexio-oss/extended-flex-types'
+import {URLExtended} from '@flexio-oss/extended-flex-types'
 import {XmlHttpRequestDelegateBuilder} from '../js/types/XmlHttpRequestDelegate'
 import {globalFlexioImport} from '@flexio-oss/global-import-registry'
 import {XmlHttpRequester, XmlHttpRequesterBuilder} from '../js/XmlHttpRequester'
 import {FakeExecutor} from './FakeExecutor'
+import {StringArray} from '@flexio-oss/flex-types'
 
 const assert = require('assert')
 
