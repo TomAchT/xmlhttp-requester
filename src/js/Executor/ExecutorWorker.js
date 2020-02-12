@@ -2,13 +2,13 @@
 
 import {globalFlexioImport} from '@flexio-oss/global-import-registry'
 import {XmlHttpResponseDelegateBuilder} from '../XmlHttpResponseDelegate'
-import {Executor} from './Executor'
+import {SyncExecutor} from './SyncExecutor'
 import Worker from './Executor.worker'
 
 /**
  * @implements {ExecutorRequesterInterface}
  */
-export class ExecutorWorker extends Executor {
+export class ExecutorWorker extends SyncExecutor {
   /**
    *
    * @param {RequestMessageWorker} requestMessageWorker

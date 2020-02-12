@@ -1,12 +1,12 @@
 /* global XMLHttpRequest */
 
 import {isNull} from '@flexio-oss/assert'
-import {Executor} from './Executor'
+import {SyncExecutor} from './SyncExecutor'
 
 /**
  * @implements {ExecutorRequesterInterface}
  */
-export class ExecutorWithoutClb extends Executor {
+export class ExecutorWithoutClb extends SyncExecutor {
   /**
    * @param {XmlHttpRequestDelegate} xmlhttpRequestDelegate
    * @param {ExecutorRequesterInterface~executionClb} callback
