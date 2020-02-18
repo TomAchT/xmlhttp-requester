@@ -2,9 +2,8 @@
 global Headers
 */
 
-import {assertType, isNull, isNumber, isString} from '@flexio-oss/assert'
+import {assertType, isNull, isNumber, isBinary} from '@flexio-oss/assert'
 import {deepFreezeSeal} from '@flexio-oss/js-type-helpers'
-import {ResponseDelegate} from '@flexio-oss/js-helpers'
 import {StringArrayMap, StringArrayMapBuilder} from '@flexio-oss/extended-flex-types'
 
 /**
@@ -140,7 +139,7 @@ export class XmlHttpResponseDelegateBuilder {
    * @returns {XmlHttpResponseDelegateBuilder}
    */
   payload(payload) {
-    assertType(isNull(payload) || isString(payload), 'XmlHttpResponseDelegateBuilder: `payload` should be a string')
+    assertType(isNull(payload) || isBinary(payload), 'XmlHttpResponseDelegateBuilder: `payload` should be a string')
     this.__payload = payload
     return this
   }

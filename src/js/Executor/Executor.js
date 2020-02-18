@@ -112,15 +112,14 @@ export class Executor extends SyncExecutor {
     request.open(method, this._buildPath(xmlhttpRequestDelegate), true)
     this._setRequestHeaders(request, xmlhttpRequestDelegate)
 
-    request.onreadystatechange = () => {
-      if (request.readyState === 4) {
-        callback(new XmlHttpResponseDelegateBuilder()
-          .code(request.status)
-          .payload(request.responseText)
-          .headers(this._responseHeaders(request))
-          .build())
-      }
-    }
+    request.responseType = "blob";
+    request.onload = (oEvent) =>{
+      callback(new XmlHttpResponseDelegateBuilder()
+        .code(request.status)
+        .payload(request.response)
+        .headers(this._responseHeaders(request))
+        .build())
+    };
 
     request.send(body)
   }
