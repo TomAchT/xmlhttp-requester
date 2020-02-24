@@ -135,11 +135,11 @@ export class XmlHttpResponseDelegateBuilder {
   }
 
   /**
-   * @param {?string} [payload=null]
+   * @param {?Blob} [payload=null]
    * @returns {XmlHttpResponseDelegateBuilder}
    */
   payload(payload) {
-    assertType(isNull(payload) || isBinary(payload), 'XmlHttpResponseDelegateBuilder: `payload` should be a string')
+    assertType(isNull(payload) || isBinary(payload), 'XmlHttpResponseDelegateBuilder: `payload` should be a binary')
     this.__payload = payload
     return this
   }
