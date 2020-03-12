@@ -50,7 +50,7 @@ class RequestMessageWorker {
    * @param { string } method
    */
   withMethod(method) {
-    var builder = RequestMessageWorkerBuilder.from(this)
+    let builder = RequestMessageWorkerBuilder.from(this)
     builder.method(method)
     return builder.build()
   }
@@ -59,7 +59,7 @@ class RequestMessageWorker {
    * @param { XmlHttpRequestDelegate } requestDelegate
    */
   withRequestDelegate(requestDelegate) {
-    var builder = RequestMessageWorkerBuilder.from(this)
+    let builder = RequestMessageWorkerBuilder.from(this)
     builder.requestDelegate(requestDelegate)
     return builder.build()
   }
@@ -68,7 +68,7 @@ class RequestMessageWorker {
    * @param { string } body
    */
   withBody(body) {
-    var builder = RequestMessageWorkerBuilder.from(this)
+    let builder = RequestMessageWorkerBuilder.from(this)
     builder.body(body)
     return builder.build()
   }
@@ -77,13 +77,13 @@ class RequestMessageWorker {
    * @param { string } contentType
    */
   withContentType(contentType) {
-    var builder = RequestMessageWorkerBuilder.from(this)
+    let builder = RequestMessageWorkerBuilder.from(this)
     builder.contentType(contentType)
     return builder.build()
   }
 
   toObject() {
-    var jsonObject = {}
+    let jsonObject = {}
     if (this._method !== undefined) {
       jsonObject['method'] = this._method
     }
@@ -180,7 +180,7 @@ class RequestMessageWorkerBuilder {
    * @returns {RequestMessageWorkerBuilder}
    */
   static fromObject(jsonObject) {
-    var builder = new RequestMessageWorkerBuilder()
+    let builder = new RequestMessageWorkerBuilder()
     if (jsonObject['method'] !== undefined) {
       builder.method(jsonObject['method'])
     }
@@ -201,7 +201,7 @@ class RequestMessageWorkerBuilder {
    * @returns {RequestMessageWorkerBuilder}
    */
   static fromJson(json) {
-    var jsonObject = JSON.parse(json)
+    let jsonObject = JSON.parse(json)
     return this.fromObject(jsonObject)
   }
 
@@ -210,7 +210,7 @@ class RequestMessageWorkerBuilder {
    * @returns {RequestMessageWorkerBuilder}
    */
   static from(instance) {
-    var builder = new RequestMessageWorkerBuilder()
+    let builder = new RequestMessageWorkerBuilder()
     builder.method(instance.method())
     builder.requestDelegate(instance.requestDelegate())
     builder.body(instance.body())

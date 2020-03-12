@@ -1,7 +1,8 @@
 /* global runTest */
 import {TestCase} from 'code-altimeter-js'
 import '../../import'
-import {StringArray, URLExtended} from '@flexio-oss/extended-flex-types'
+import {URLExtended} from '@flexio-oss/extended-flex-types'
+import {StringArray} from '@flexio-oss/flex-types'
 import {XmlHttpRequestDelegateBuilder} from '../js/types/XmlHttpRequestDelegate'
 import {globalFlexioImport} from '@flexio-oss/global-import-registry'
 
@@ -19,7 +20,6 @@ export class TestXmlHttpRequestDelegate extends TestCase {
       .arrayParameter('q_string_array', new StringArray('bobo', 'bubu', 'bybyb'))
       .arrayParameter('q_array', ['bobo', 'bubu', 'bybyb'])
       .build()
-
   }
 
   /**
@@ -63,21 +63,17 @@ export class TestXmlHttpRequestDelegate extends TestCase {
   }
 
   testRetrieveProperties() {
-
     assert.deepEqual(this.requestDelegate.parameters(), this.__parameters(), 'should retrieve parameters')
     assert.deepEqual(this.requestDelegate.path(), new URLExtended('https://flexio.io/test'), 'should retrieve path')
     assert.deepEqual(this.requestDelegate.headers().entries(), this.__headers().entries(), 'should retrieve headers')
-
   }
 
-  testRetrievePropertiesAfterSrialisation() {
-
+  testRetrievePropertiesAfterSerialisation() {
     const requestDelegate = XmlHttpRequestDelegateBuilder.fromJson(JSON.stringify(this.requestDelegate)).build()
 
     assert.deepEqual(requestDelegate.parameters(), this.__parameters(), 'should retrieve parameters')
     assert.deepEqual(requestDelegate.path(), new URLExtended('https://flexio.io/test'), 'should retrieve path')
     assert.deepEqual(requestDelegate.headers().entries(), this.__headers().entries(), 'should retrieve headers')
-
   }
 }
 

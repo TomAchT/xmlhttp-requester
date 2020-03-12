@@ -1,7 +1,8 @@
 /* global runTest */
 import {TestCase} from 'code-altimeter-js'
 import '../../import'
-import {StringArrayMapBuilder, StringArray, URLExtended} from '@flexio-oss/extended-flex-types'
+import {StringArrayMapBuilder, URLExtended} from '@flexio-oss/extended-flex-types'
+import {StringArray} from '@flexio-oss/flex-types'
 import {XmlHttpResponseDelegateBuilder} from '../js/XmlHttpResponseDelegate'
 import {Executor} from '../js/Executor/Executor'
 import {XmlHttpRequestDelegateBuilder} from '../js/types/XmlHttpRequestDelegate'

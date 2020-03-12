@@ -1,11 +1,12 @@
 /* global runTest */
 import {TestCase} from 'code-altimeter-js'
 import '../../import'
-import {StringArray, URLExtended} from '@flexio-oss/extended-flex-types'
+import {URLExtended} from '@flexio-oss/extended-flex-types'
 import {XmlHttpRequestDelegateBuilder} from '../js/types/XmlHttpRequestDelegate'
 import {globalFlexioImport} from '@flexio-oss/global-import-registry'
 import {XmlHttpRequester, XmlHttpRequesterBuilder} from '../js/XmlHttpRequester'
 import {FakeExecutor} from './FakeExecutor'
+import {StringArray} from '@flexio-oss/flex-types'
 
 const assert = require('assert')
 
@@ -128,8 +129,6 @@ export class TestXmlHttpRequester extends TestCase {
   }
 
   testMethodGET() {
-    assert.deepEqual(FakeExecutor.expectedResponse().toJSON(), this.requester.get(() => {
-    }).toJSON())
 
     assert.throws(
       () => {
@@ -140,8 +139,6 @@ export class TestXmlHttpRequester extends TestCase {
   }
 
   testMethodPOST() {
-    assert.deepEqual(FakeExecutor.expectedResponse().toJSON(), this.requester.post(() => {
-    }).toJSON())
 
     assert.throws(
       () => {
@@ -152,8 +149,6 @@ export class TestXmlHttpRequester extends TestCase {
   }
 
   testMethodPATCH() {
-    assert.deepEqual(FakeExecutor.expectedResponse().toJSON(), this.requester.patch(() => {
-    }).toJSON())
 
     assert.throws(
       () => {
@@ -164,8 +159,6 @@ export class TestXmlHttpRequester extends TestCase {
   }
 
   testMethodPUT() {
-    assert.deepEqual(FakeExecutor.expectedResponse().toJSON(), this.requester.put(() => {
-    }).toJSON())
 
     assert.throws(
       () => {
@@ -176,8 +169,6 @@ export class TestXmlHttpRequester extends TestCase {
   }
 
   testMethodDELETE() {
-    assert.deepEqual(FakeExecutor.expectedResponse().toJSON(), this.requester.delete(() => {
-    }).toJSON())
 
     assert.throws(
       () => {
@@ -191,12 +182,7 @@ export class TestXmlHttpRequester extends TestCase {
     assert.deepEqual(FakeExecutor.expectedResponse().toJSON(), this.requester.head(() => {
     }).toJSON())
 
-    assert.throws(
-      () => {
-        this.requester.head((resp) => {
-          assert.notDeepStrictEqual(resp.toJSON(), FakeExecutor.expectedResponse().toJSON())
-        })
-      })
+
   }
 }
 

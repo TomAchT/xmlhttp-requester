@@ -1,7 +1,9 @@
 /* global XMLHttpRequest */
-import {StringArray, StringArrayMapBuilder} from '@flexio-oss/extended-flex-types'
+import {StringArrayMapBuilder} from '@flexio-oss/extended-flex-types'
 import {XmlHttpResponseDelegateBuilder} from '../js/XmlHttpResponseDelegate'
 import {ExecutorRequesterInterface} from '../js/Executor/ExecutorRequesterInterface'
+import {StringArray} from '@flexio-oss/flex-types'
+import {Blob} from '@flexio-oss/hotballoon-test-dummies'
 
 /**
  * @implements {ExecutorRequesterInterface}
@@ -77,9 +79,10 @@ export class FakeExecutor extends ExecutorRequesterInterface {
    * @return {XmlHttpResponseDelegate}
    */
   static expectedResponse() {
+    global.Blob = Blob
     return new XmlHttpResponseDelegateBuilder()
       .code(200)
-      .payload(JSON.stringify({toto: 'toto', tutu: [1, 4, 6]}))
+      .payload(null)
       .headers((new StringArrayMapBuilder())
         .entries(
           [
