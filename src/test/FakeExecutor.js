@@ -82,7 +82,7 @@ export class FakeExecutor extends ExecutorRequesterInterface {
     global.Blob = Blob
     return new XmlHttpResponseDelegateBuilder()
       .code(200)
-      .payload(new Blob(JSON.stringify({toto: 'toto', tutu: [1, 4, 6]})))
+      .payload(null)
       .headers((new StringArrayMapBuilder())
         .entries(
           [
