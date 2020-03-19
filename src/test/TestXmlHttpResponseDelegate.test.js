@@ -28,7 +28,7 @@ export class TestXmlHttpResponseDelegate extends TestCase {
 
   testRetrieveProperties() {
     assert(this.responseDelegateInst.code() === 200)
-    assert.deepEqual(this.responseDelegateInst.payload(), new Blob('{"toto":"toto","tutu":[1,4,6]}'))
+    assert.deepEqual(this.responseDelegateInst.payload(), null)
   }
 }
 
